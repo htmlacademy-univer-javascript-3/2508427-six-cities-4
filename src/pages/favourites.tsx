@@ -1,5 +1,5 @@
-import FavouriteLocation from '../../components/favourite-location/favourite-location.tsx';
-import Header from '../../components/header/header.tsx';
+import FavouriteLocation from '../components/favourite-location.tsx';
+import Header from '../components/header.tsx';
 
 function Favourites() {
   return (
