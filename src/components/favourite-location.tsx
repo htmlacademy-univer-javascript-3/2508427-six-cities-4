@@ -1,4 +1,4 @@
-import FavouritePlace from '../favourite-place/favourite-place.tsx';
+import FavouritePlace from './favourite-place.tsx';
 
 function FavouriteLocation() {
   return (

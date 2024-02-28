@@ -1,6 +1,6 @@
-import Header from '../../components/header/header.tsx';
-import Place from '../../components/place/place.tsx';
-import Reviews from '../../components/reviews/reviews.tsx';
+import Header from '../components/header.tsx';
+import Place from '../components/place.tsx';
+import Reviews from '../components/reviews.tsx';
 
 function Offer() {
   return (

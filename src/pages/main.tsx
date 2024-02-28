@@ -1,7 +1,7 @@
-import Header from '../../components/header/header.tsx';
-import Tabs from '../../components/tabs/tabs.tsx';
-import Map from '../../components/map/map.tsx';
-import Place from '../../components/place/place.tsx';
+import Header from '../components/header.tsx';
+import Tabs from '../components/tabs.tsx';
+import Map from '../components/map.tsx';
+import Place from '../components/place.tsx';
 
 type MainProps = {
   foundPlacesAmount: number;

@@ -1,6 +1,6 @@
-import Place from '../../components/place/place.tsx';
-import HeaderNotLogged from '../../components/header-not-logged/header-not-logged.tsx';
-import ReviewsNotLogged from '../../components/reviews-not-logged/reviews-not-logged.tsx';
+import Place from '../components/place.tsx';
+import HeaderNotLogged from '../components/header-not-logged.tsx';
+import ReviewsNotLogged from '../components/reviews-not-logged.tsx';
 
 function OfferNotLogged() {
   return (

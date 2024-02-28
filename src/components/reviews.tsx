@@ -1,4 +1,4 @@
-import Review from '../review/review.tsx';
+import Review from './review.tsx';
 
 function Reviews() {
   return (

@@ -1,5 +1,5 @@
-import Header from '../../components/header/header.tsx';
-import Tabs from '../../components/tabs/tabs.tsx';
+import Header from '../components/header.tsx';
+import Tabs from '../components/tabs.tsx';
 
 function MainEmpty() {
   return (
