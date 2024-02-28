@@ -1,7 +1,7 @@
 import FavouriteLocation from '../components/favourite-location.tsx';
 import Header from '../components/header.tsx';
 
-function Favourites() {
+function FavouritesPage() {
   return (
     <div className="page">
       <Header />
@@ -26,4 +26,4 @@ function Favourites() {
   );
 }
 
-export default Favourites;
+export default FavouritesPage;

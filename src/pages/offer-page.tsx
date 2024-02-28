@@ -2,7 +2,7 @@ import Header from '../components/header.tsx';
 import Place from '../components/place.tsx';
 import Reviews from '../components/reviews.tsx';
 
-function Offer() {
+function OfferPage() {
   return (
     <div className="page">
       <Header />
@@ -148,4 +148,4 @@ function Offer() {
   );
 }
 
-export default Offer;
+export default OfferPage;

@@ -1,7 +1,7 @@
 import Header from '../components/header.tsx';
 import Tabs from '../components/tabs.tsx';
 
-function MainEmpty() {
+function MainEmptyPage() {
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -25,4 +25,4 @@ function MainEmpty() {
   );
 }
 
-export default MainEmpty;
+export default MainEmptyPage;

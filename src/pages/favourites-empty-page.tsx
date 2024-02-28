@@ -1,6 +1,6 @@
 import Header from '../components/header.tsx';
 
-function FavouritesEmpty() {
+function FavouritesEmptyPage() {
   return (
     <div className="page page--favorites-empty">
       <Header />
@@ -25,4 +25,4 @@ function FavouritesEmpty() {
   );
 }
 
-export default FavouritesEmpty;
+export default FavouritesEmptyPage;

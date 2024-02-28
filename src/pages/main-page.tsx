@@ -1,13 +1,12 @@
 import Header from '../components/header.tsx';
 import Tabs from '../components/tabs.tsx';
-import Map from '../components/map.tsx';
 import Place from '../components/place.tsx';
 
-type MainProps = {
+type MainPageProps = {
   foundPlacesAmount: number;
 };
 
-function Main({foundPlacesAmount}: MainProps) {
+function MainPage({foundPlacesAmount}: MainPageProps) {
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -44,7 +43,7 @@ function Main({foundPlacesAmount}: MainProps) {
               </div>
             </section>
             <div className="cities__right-section">
-              <Map />
+              <section className="cities__map map"></section>
             </div>
           </div>
         </div>
@@ -53,4 +52,4 @@ function Main({foundPlacesAmount}: MainProps) {
   );
 }
 
-export default Main;
+export default MainPage;

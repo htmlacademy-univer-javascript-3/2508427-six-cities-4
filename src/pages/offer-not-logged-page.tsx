@@ -2,7 +2,7 @@ import Place from '../components/place.tsx';
 import HeaderNotLogged from '../components/header-not-logged.tsx';
 import ReviewsNotLogged from '../components/reviews-not-logged.tsx';
 
-function OfferNotLogged() {
+function OfferNotLoggedPage() {
   return (
     <div className="page">
       <HeaderNotLogged/>
@@ -148,4 +148,4 @@ function OfferNotLogged() {
   );
 }
 
-export default OfferNotLogged;
+export default OfferNotLoggedPage;
