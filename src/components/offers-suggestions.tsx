@@ -8,7 +8,7 @@ type OffersSuggestionsProps = {
 };
 
 function OffersSuggestions({offers, maxAmount}: OffersSuggestionsProps) {
-  const [activeOfferId, setActiveOfferId] = useState<number | null>(null);
+  const [_, setActiveOfferId] = useState<number | null>(null);
 
   const handleMouseEnter = (id: number) => {
     setActiveOfferId(id);
