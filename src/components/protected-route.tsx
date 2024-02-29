@@ -9,7 +9,7 @@ type ProtectedRouteProps = {
 
 function ProtectedRoute({authorizationStatus, children}: ProtectedRouteProps) {
   return (
-    authorizationStatus === AuthorizationStatus.Authorized
+    authorizationStatus !== AuthorizationStatus.Authorized
       ? children
       : <Navigate to="/login" />
   );

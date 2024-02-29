@@ -1,4 +1,4 @@
-import Place from '../components/place.tsx';
+import OfferCard from '../components/offer-card.tsx';
 import HeaderNotLogged from '../components/header-not-logged.tsx';
 import ReviewsNotLogged from '../components/reviews-not-logged.tsx';
 
@@ -137,9 +137,9 @@ function OfferNotLoggedPage() {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <Place/>
-              <Place/>
-              <Place/>
+              <OfferCard/>
+              <OfferCard/>
+              <OfferCard/>
             </div>
           </section>
         </div>
