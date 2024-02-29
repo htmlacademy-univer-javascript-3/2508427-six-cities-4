@@ -4,24 +4,24 @@ import OfferPage from './pages/offer-page.tsx';
 import LoginPage from './pages/login-page.tsx';
 import FavouritesPage from './pages/favourites-page.tsx';
 import ProtectedRoute from './components/protected-route.tsx';
-import { AuthorizationStatus } from './settings.ts';
+import { AuthorizationStatus, Path } from './settings.ts';
 import MainPage from './pages/main-page.tsx';
-import { offers } from './mocks/offers.ts';
+import { offersCompressed } from './mocks/offers.ts';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainPage offers={offers} />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/favourites" element={
+        <Route path={Path.Main} element={<MainPage offers={offersCompressed} />} />
+        <Route path={Path.Login} element={<LoginPage />} />
+        <Route path={Path.Favourites} element={
           <ProtectedRoute authorizationStatus={AuthorizationStatus.NotAuthorized}>
-            <FavouritesPage offers={offers} />
+            <FavouritesPage offers={offersCompressed} />
           </ProtectedRoute>
         }
         />
-        <Route path="/offers/:id" element={<OfferPage offers={offers} />} />
-        <Route path="*" element={<ErrorPage />} />
+        <Route path={Path.OfferById} element={<OfferPage />} />
+        <Route path={Path.Error} element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
   );

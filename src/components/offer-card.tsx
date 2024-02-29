@@ -1,18 +1,18 @@
-import { Offer } from '../types/offer.ts';
+import { OfferCompressed } from '../types/offer.ts';
 import { Link } from 'react-router-dom';
+import { capitalize } from '../utils.ts';
 
 type PlaceProps = {
-  offer: Offer;
-  onMouseEnter: () => void;
-  onMouseLeave: () => void;
+  offer: OfferCompressed;
+  onHover: (id: string | null) => void;
 };
 
-function OfferCard({offer, onMouseEnter, onMouseLeave}: PlaceProps) {
+function OfferCard({offer, onHover}: PlaceProps) {
   return (
-    <article className="cities__card place-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-      {offer.premium && <div className="place-card__mark"><span>Premium</span></div>}
+    <article className="cities__card place-card" onMouseEnter={() => onHover(offer.id)} onMouseLeave={() => onHover(null)}>
+      {offer.isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <img style={{cursor: 'pointer'}} className="place-card__image" src={offer.images[0]} width="260" height="200" alt="OfferCard image"/>
+        <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt={offer.title}/>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -20,7 +20,7 @@ function OfferCard({offer, onMouseEnter, onMouseLeave}: PlaceProps) {
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -34,9 +34,9 @@ function OfferCard({offer, onMouseEnter, onMouseLeave}: PlaceProps) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offers/${offer.id}`}>{offer.header}</Link>
+          <Link to={`/offers/${offer.id}`}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type">{capitalize(offer.type)}</p>
       </div>
     </article>
   );

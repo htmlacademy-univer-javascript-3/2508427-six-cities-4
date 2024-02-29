@@ -1,18 +1,18 @@
 import OfferCardFavourite from './offer-card-favourite.tsx';
-import { Offer } from '../types/offer.ts';
+import { OfferCompressed } from '../types/offer.ts';
 
 type FavouriteLocationProps = {
-  location: string;
-  offers: Offer[];
+  cityName: string;
+  offers: OfferCompressed[];
 };
 
-function FavouriteLocation({location, offers}: FavouriteLocationProps) {
+function FavouriteLocation({cityName, offers}: FavouriteLocationProps) {
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
           <a className="locations__item-link" href="#">
-            <span>{location}</span>
+            <span>{cityName}</span>
           </a>
         </div>
       </div>

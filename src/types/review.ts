@@ -1,14 +1,14 @@
-import { UserCompressed } from './user.ts';
+import { User } from './user.ts';
 
 export interface Review {
-  id: number;
-  author: UserCompressed;
-  rating: number;
+  id: string;
   date: string;
-  text: string;
+  user: User;
+  comment: string;
+  rating: number;
 }
 
 export interface ReviewTemplate {
+  comment: string;
   rating: number;
-  text: string;
 }

@@ -1,45 +1,24 @@
 import FavouriteLocation from '../components/favourite-location.tsx';
 import Header from '../components/header.tsx';
 import Logo, { LogoType } from '../components/logo.tsx';
-import { Offer, OfferLocation } from '../types/offer.ts';
+import { OfferCompressed } from '../types/offer.ts';
 
 type FavouritesPageProps = {
-  offers: Offer[];
+  offers: OfferCompressed[];
 };
 
-function groupOffers(offers: Offer[]): {[key in OfferLocation]?: Offer[]} {
-  if (offers.length === 0) {
-    return {};
-  }
-  const clonedOffers = structuredClone(offers);
-  clonedOffers.sort((a, b) => (a.location > b.location) ? 1 : -1);
-
-  const result = {[clonedOffers[0].location]: [clonedOffers[0]]};
-  let previousLocation = clonedOffers[0].location;
-  for (let i = 1; i < clonedOffers.length; i++) {
-    if (clonedOffers[i].location === previousLocation) {
-      result[previousLocation].push(clonedOffers[i]);
-    } else {
-      result[clonedOffers[i].location] = [clonedOffers[i]];
-      previousLocation = clonedOffers[i].location;
-    }
-  }
-
-  return result;
-}
-
 function FavouritesPage({offers}: FavouritesPageProps) {
-  const groupedOffers = groupOffers(offers);
-  const content = offers.length > 0
+  const citiesNames = [...new Set(offers.map((x) => x.city.name))];
+  const content = citiesNames.length > 0
     ? (
       <section className="favorites">
         <h1 className="favorites__title">Saved listing</h1>
         <ul className="favorites__list">
-          {Object.entries(groupedOffers).map(([location, offersGroup]) => (
+          {citiesNames.map((cityName) => (
             <FavouriteLocation
-              key={location}
-              location={location}
-              offers={offersGroup}
+              key={cityName}
+              cityName={cityName}
+              offers={offers.filter((x) => x.city.name === cityName)}
             />))}
         </ul>
       </section>

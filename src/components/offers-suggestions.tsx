@@ -1,32 +1,25 @@
-import { Offer } from '../types/offer.ts';
 import OfferCard from './offer-card.tsx';
 import { useState } from 'react';
+import { offersCompressed } from '../mocks/offers.ts';
 
 type OffersSuggestionsProps = {
-  offers: Offer[];
+  offerId: string;
   maxAmount?: number;
 };
 
-function OffersSuggestions({offers, maxAmount}: OffersSuggestionsProps) {
-  const [_, setActiveOfferId] = useState<number | null>(null);
+function OffersSuggestions({offerId, maxAmount = 3}: OffersSuggestionsProps) {
+  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
-  const handleMouseEnter = (id: number) => {
+  function handleHover(id: string | null) {
     setActiveOfferId(id);
-  };
-  const handleMouseLeave = () => {
-    setActiveOfferId(null);
-  };
+  }
 
-  const validOffers = maxAmount !== undefined && maxAmount > 0
-    ? offers.slice(0, maxAmount)
-    : offers;
-  const classes = maxAmount === undefined
-    ? 'cities__places-list places__list tabs__content'
-    : 'near-places__list places__list';
+  // API get offers by offerId
+  const validOffers = offersCompressed.slice(0, maxAmount);
 
   return (
-    <div className={classes}>
-      {validOffers.map((x) => <OfferCard key={x.id} offer={x} onMouseEnter={() => handleMouseEnter(x.id)} onMouseLeave={handleMouseLeave} />)}
+    <div className="near-places__list places__list">
+      {validOffers.map((x) => <OfferCard key={x.id} offer={x} onHover={handleHover} />)}
     </div>
   );
 }

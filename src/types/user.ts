@@ -1,10 +1,18 @@
-export interface UserCompressed {
-  name: string;
-  image: string;
-}
-
 export interface User {
   name: string;
-  image: string;
-  pro: boolean;
+  avatarUrl: string;
+  isPro: boolean;
+}
+
+export interface UserIdentity {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+  email: string;
+  token: string;
+}
+
+export interface UserLogin {
+  email: string;
+  password: string;
 }

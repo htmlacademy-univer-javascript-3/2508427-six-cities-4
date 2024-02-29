@@ -1,35 +1,40 @@
-import { Review } from './review.ts';
+import { Location, LocationCity } from './location.ts';
 import { User } from './user.ts';
 
 export enum OfferType {
-  Apartment = 'Apartment',
-  Room = 'Room',
-  House = 'House',
-  Hotel = 'Hotel'
+  Apartment = 'apartment',
+  Room = 'room',
+  House = 'house',
+  Hotel = 'hotel'
 }
 
-export enum OfferLocation {
-  Paris = 'Paris',
-  Cologne = 'Cologne',
-  Brussels = 'Brussels',
-  Amsterdam = 'Amsterdam',
-  Hamburg = 'Hamburg',
-  Dusseldorf = 'Dusseldorf'
+export interface OfferCompressed {
+  id: string;
+  title: string;
+  type: OfferType;
+  price: number;
+  city: LocationCity;
+  location: Location;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  previewImage: string;
 }
 
 export interface Offer {
-  id: number;
-  images: string[];
-  header: string;
-  description: string[];
-  premium: boolean;
+  id: string;
+  title: string;
   type: OfferType;
-  rating: number;
-  bedroomsAmount: number;
-  maxAdultsAmount: number;
   price: number;
-  extraFeatures: string[];
-  owner: User;
-  reviews: Review[];
-  location: OfferLocation;
+  city: LocationCity;
+  location: Location;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: User;
+  images: string[];
+  maxAdults: number;
 }

@@ -1,17 +1,18 @@
-import { Offer } from '../types/offer.ts';
+import { OfferCompressed } from '../types/offer.ts';
 import { Link } from 'react-router-dom';
+import { capitalize } from '../utils.ts';
 
-type FavouritePlaceProps = {
-  offer: Offer;
+type OfferCardFavouriteProps = {
+  offer: OfferCompressed;
 };
 
-function OfferCardFavourite({offer}: FavouritePlaceProps) {
+function OfferCardFavourite({offer}: OfferCardFavouriteProps) {
   return (
     <article className="favorites__card place-card">
-      {offer.premium && <div className="place-card__mark"><span>Premium</span></div>}
+      {offer.isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`/offers/${offer.id}`}>
-          <img className="place-card__image" src={offer.images[0]} width="150" height="110" alt="OfferCard image"/>
+          <img className="place-card__image" src={offer.previewImage} width="150" height="110" alt={offer.title}/>
         </Link>
       </div>
       <div className="favorites__card-info place-card__info">
@@ -34,9 +35,9 @@ function OfferCardFavourite({offer}: FavouritePlaceProps) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offers/${offer.id}`}>{offer.header}</Link>
+          <Link to={`/offers/${offer.id}`}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type">{capitalize(offer.type)}</p>
       </div>
     </article>
   );
