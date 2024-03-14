@@ -1,6 +1,8 @@
 import { OfferCompressed } from '../types/offer.ts';
 import { Link } from 'react-router-dom';
-import { capitalize } from '../utils.ts';
+import '../style.css';
+import PremiumLabel from './premium-label.tsx';
+
 
 type PlaceProps = {
   offer: OfferCompressed;
@@ -10,7 +12,7 @@ type PlaceProps = {
 function OfferCard({offer, onHover}: PlaceProps) {
   return (
     <article className="cities__card place-card" onMouseEnter={() => onHover(offer.id)} onMouseLeave={() => onHover(null)}>
-      {offer.isPremium && <div className="place-card__mark"><span>Premium</span></div>}
+      <PremiumLabel visible={offer.isPremium} />
       <div className="cities__image-wrapper place-card__image-wrapper">
         <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt={offer.title}/>
       </div>
@@ -36,7 +38,7 @@ function OfferCard({offer, onHover}: PlaceProps) {
         <h2 className="place-card__name">
           <Link to={`/offers/${offer.id}`}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{capitalize(offer.type)}</p>
+        <p className="place-card__type text__capital">{offer.type}</p>
       </div>
     </article>
   );

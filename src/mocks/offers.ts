@@ -1,6 +1,7 @@
 import { Offer, OfferCompressed, OfferType } from '../types/offer.ts';
-import { locations, locationsCities } from './locations.ts';
+import { locations } from './locations.ts';
 import { users } from './users.ts';
+import { cities } from './cities.ts';
 
 
 export const offers: Offer[] = [
@@ -9,7 +10,7 @@ export const offers: Offer[] = [
     title: 'Cozy Apartment',
     type: OfferType.Apartment,
     price: 1200,
-    city: locationsCities[0],
+    city: cities[0],
     location: locations[0],
     isFavorite: false,
     isPremium: false,
@@ -26,7 +27,7 @@ export const offers: Offer[] = [
     title: 'Digital house with garden',
     type: OfferType.Hotel,
     price: 100,
-    city: locationsCities[0],
+    city: cities[0],
     location: locations[0],
     isFavorite: true,
     isPremium: false,
@@ -43,7 +44,7 @@ export const offers: Offer[] = [
     title: 'Hotel with school nearby',
     type: OfferType.House,
     price: 10,
-    city: locationsCities[2],
+    city: cities[2],
     location: locations[2],
     isFavorite: false,
     isPremium: true,
@@ -60,7 +61,7 @@ export const offers: Offer[] = [
     title: 'House or flat idk',
     type: OfferType.Room,
     price: 500,
-    city: locationsCities[3],
+    city: cities[3],
     location: locations[3],
     isFavorite: true,
     isPremium: true,
@@ -80,7 +81,7 @@ export const offersCompressed: OfferCompressed[] = [
     title: 'Cozy Apartment',
     type: OfferType.Apartment,
     price: 1200,
-    city: locationsCities[0],
+    city: cities[0],
     location: locations[0],
     isFavorite: false,
     isPremium: false,
@@ -92,7 +93,7 @@ export const offersCompressed: OfferCompressed[] = [
     title: 'Digital house with garden',
     type: OfferType.Hotel,
     price: 100,
-    city: locationsCities[0],
+    city: cities[0],
     location: locations[0],
     isFavorite: true,
     isPremium: false,
@@ -104,7 +105,7 @@ export const offersCompressed: OfferCompressed[] = [
     title: 'Hotel with school nearby',
     type: OfferType.House,
     price: 10,
-    city: locationsCities[2],
+    city: cities[2],
     location: locations[2],
     isFavorite: false,
     isPremium: true,
@@ -116,7 +117,7 @@ export const offersCompressed: OfferCompressed[] = [
     title: 'House or flat idk',
     type: OfferType.Room,
     price: 500,
-    city: locationsCities[3],
+    city: cities[3],
     location: locations[3],
     isFavorite: true,
     isPremium: true,

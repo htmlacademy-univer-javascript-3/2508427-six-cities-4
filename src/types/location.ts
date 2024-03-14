@@ -3,8 +3,3 @@ export interface Location {
   longitude: number;
   zoom: number;
 }
-
-export interface LocationCity {
-  name: string;
-  location: Location;
-}

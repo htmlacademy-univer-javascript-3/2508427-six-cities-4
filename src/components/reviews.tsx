@@ -39,7 +39,7 @@ function Reviews({offerId}: ReviewsProps) {
       <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         <div className="reviews__rating-form form__rating">
-          <StarsSelector onChange={handleStarsInput} value={reviewTemplate.rating} />
+          <StarsSelector rating={reviewTemplate.rating} onChange={handleStarsInput} />
         </div>
         <textarea
           className="reviews__textarea form__textarea"
@@ -48,13 +48,15 @@ function Reviews({offerId}: ReviewsProps) {
           placeholder="Tell how was your stay, what you like and what can be improved"
           value={reviewTemplate.comment}
           onChange={handleTextInput}
+          maxLength={300}
+          minLength={50}
         />
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span> and
             describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
           </p>
-          <button className="reviews__submit form__submit button" type="submit" disabled={reviewTemplate.comment.length === 0 || reviewTemplate.rating === 0}>Submit</button>
+          <button className="reviews__submit form__submit button" type="submit" disabled={reviewTemplate.comment.length < 50 || reviewTemplate.comment.length > 300 || reviewTemplate.rating === 0}>Submit</button>
         </div>
       </form>
     </section>

@@ -1,6 +1,8 @@
 import { OfferCompressed } from '../types/offer.ts';
 import { Link } from 'react-router-dom';
-import { capitalize } from '../utils.ts';
+import '../style.css';
+import PremiumLabel from './premium-label.tsx';
+
 
 type OfferCardFavouriteProps = {
   offer: OfferCompressed;
@@ -9,7 +11,7 @@ type OfferCardFavouriteProps = {
 function OfferCardFavourite({offer}: OfferCardFavouriteProps) {
   return (
     <article className="favorites__card place-card">
-      {offer.isPremium && <div className="place-card__mark"><span>Premium</span></div>}
+      <PremiumLabel visible={offer.isPremium} />
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`/offers/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="150" height="110" alt={offer.title}/>
@@ -37,7 +39,7 @@ function OfferCardFavourite({offer}: OfferCardFavouriteProps) {
         <h2 className="place-card__name">
           <Link to={`/offers/${offer.id}`}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{capitalize(offer.type)}</p>
+        <p className="place-card__type text__capital">{offer.type}</p>
       </div>
     </article>
   );

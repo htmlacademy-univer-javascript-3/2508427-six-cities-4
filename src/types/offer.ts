@@ -1,5 +1,6 @@
-import { Location, LocationCity } from './location.ts';
+import { Location } from './location.ts';
 import { User } from './user.ts';
+import { City } from './city.ts';
 
 export enum OfferType {
   Apartment = 'apartment',
@@ -8,29 +9,23 @@ export enum OfferType {
   Hotel = 'hotel'
 }
 
-export interface OfferCompressed {
+interface OfferBase {
   id: string;
   title: string;
   type: OfferType;
   price: number;
-  city: LocationCity;
+  city: City;
   location: Location;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
+}
+
+export interface OfferCompressed extends OfferBase {
   previewImage: string;
 }
 
-export interface Offer {
-  id: string;
-  title: string;
-  type: OfferType;
-  price: number;
-  city: LocationCity;
-  location: Location;
-  isFavorite: boolean;
-  isPremium: boolean;
-  rating: number;
+export interface Offer extends OfferBase {
   description: string;
   bedrooms: number;
   goods: string[];

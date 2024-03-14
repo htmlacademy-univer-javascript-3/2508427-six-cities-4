@@ -3,6 +3,7 @@ import Reviews from '../components/reviews.tsx';
 import OffersSuggestions from '../components/offers-suggestions.tsx';
 import { useParams } from 'react-router-dom';
 import { offers } from '../mocks/offers.ts';
+import PremiumLabel from '../components/premium-label.tsx';
 
 function OfferPage() {
   const { id } = useParams();
@@ -24,7 +25,7 @@ function OfferPage() {
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {offer.isPremium && <div className="offer__mark"><span>Premium</span></div>}
+              <PremiumLabel visible={offer.isPremium} big />
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{offer.title}</h1>
                 <button className="offer__bookmark-button button" type="button">

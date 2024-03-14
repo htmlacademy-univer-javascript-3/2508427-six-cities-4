@@ -1,0 +1,7 @@
+.text__capital {
+  text-transform: capitalize;
+}
+
+.elements__reversed {
+  flex-direction: row;
+}

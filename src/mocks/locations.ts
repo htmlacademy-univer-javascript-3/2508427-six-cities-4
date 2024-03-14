@@ -1,4 +1,4 @@
-import { Location, LocationCity } from '../types/location.ts';
+import { Location } from '../types/location.ts';
 
 export const locations: Location[] = [
   {latitude: 37.7749, longitude: -122.4194, zoom: 6},
@@ -21,27 +21,4 @@ export const locations: Location[] = [
   {latitude: 48.8566, longitude: 2.3522, zoom: 8},
   {latitude: 31.2304, longitude: 121.4737, zoom: 9},
   {latitude: 35.6895, longitude: 139.6917, zoom: 10},
-];
-
-export const locationsCities: LocationCity[] = [
-  {name: 'San Francisco', location: locations[0]},
-  {name: 'Los Angeles', location: locations[1]},
-  {name: 'New York', location: locations[2]},
-  {name: 'London', location: locations[3]},
-  {name: 'Paris', location: locations[4]},
-  {name: 'Tokyo', location: locations[5]},
-  {name: 'Madrid', location: locations[6]},
-  {name: 'Taipei', location: locations[7]},
-  {name: 'Mumbai', location: locations[8]},
-  {name: 'Ottawa', location: locations[9]},
-  {name: 'Ho Chi Minh City', location: locations[10]},
-  {name: 'Toronto', location: locations[11]},
-  {name: 'Seoul', location: locations[12]},
-  {name: 'Bangalore', location: locations[13]},
-  {name: 'Mexico City', location: locations[14]},
-  {name: 'Shanghai', location: locations[15]},
-  {name: 'Paris', location: locations[16]},
-  {name: 'Tokyo', location: locations[17]},
-  {name: 'London', location: locations[18]},
-  {name: 'Madrid', location: locations[19]},
 ];
