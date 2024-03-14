@@ -1,16 +1,12 @@
+export enum AuthorizationStatus {
+  NotAuthorized,
+  Authorized
+}
+
 export enum Path {
   Main = '/',
   Login = '/login',
   Favourites = '/favourites',
-  OfferById = '/offer/:id',
+  OfferById = '/offers/:id',
   Error = '*'
-}
-
-export enum MainPageSettings {
-  FoundPlacesAmount = 312
-}
-
-export enum AuthorizationStatus {
-  NotAuthorized,
-  Authorized
 }
