@@ -1,14 +1,12 @@
 import OfferCard from './offer-card.tsx';
-import { useState } from 'react';
 import { OfferCompressed } from '../types/offer.ts';
 
 type OffersListProps = {
   offers: OfferCompressed[];
+  setActiveOfferId: (offerId: string | null) => void;
 };
 
-function OffersList({offers}: OffersListProps) {
-  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
-
+function OffersList({offers, setActiveOfferId}: OffersListProps) {
   function handleHover(offerId: string | null) {
     setActiveOfferId(offerId);
   }
