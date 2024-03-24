@@ -6,6 +6,6 @@ export const cities: City[] = [
   {name: 'Cologne', center: locations[1]},
   {name: 'Brussels', center: locations[2]},
   {name: 'Amsterdam', center: locations[3]},
-  {name: 'Hamburg', center: locations[4]},
-  {name: 'Dusseldorf', center: locations[5]},
+  {name: 'Hamburg', center: locations[0]},
+  {name: 'Dusseldorf', center: locations[1]},
 ];

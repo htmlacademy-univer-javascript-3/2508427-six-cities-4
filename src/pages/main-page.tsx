@@ -2,12 +2,17 @@ import Header from '../components/header.tsx';
 import Tabs from '../components/tabs.tsx';
 import { OfferCompressed } from '../types/offer.ts';
 import OffersList from '../components/offers-list.tsx';
+import Map from '../components/map.tsx';
+import { useState } from 'react';
+import { cities } from '../mocks/cities.ts';
 
 type MainPageProps = {
   offers: OfferCompressed[];
 };
 
 function MainPage({offers}: MainPageProps) {
+  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+
   const content = offers.length > 0
     ? (
       <div className="cities__places-container container">
@@ -29,10 +34,10 @@ function MainPage({offers}: MainPageProps) {
             {/*  <li className="places__option" tabIndex={0}>Top rated first</li>*/}
             {/*</ul>*/}
           </form>
-          <OffersList offers={offers} />
+          <OffersList offers={offers} setActiveOfferId={setActiveOfferId} />
         </section>
         <div className="cities__right-section">
-          <section className="cities__map map"></section>
+          <Map location={cities[0].center} offers={offers} specialOfferId={activeOfferId} />
         </div>
       </div>
     )
