@@ -37,7 +37,7 @@ function MainPage({offers}: MainPageProps) {
           <OffersList offers={offers} setActiveOfferId={setActiveOfferId} />
         </section>
         <div className="cities__right-section">
-          <Map location={cities[0].center} offers={offers} specialOfferId={activeOfferId} />
+          <Map location={cities[0].center} offers={offers} specialOfferId={activeOfferId} type="cities" />
         </div>
       </div>
     )

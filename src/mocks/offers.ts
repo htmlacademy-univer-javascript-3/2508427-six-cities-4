@@ -6,7 +6,7 @@ import { cities } from './cities.ts';
 
 export const offers: Offer[] = [
   {
-    id: '1',
+    id: '0',
     title: 'Cozy Apartment',
     type: OfferType.Apartment,
     price: 1200,
@@ -23,7 +23,7 @@ export const offers: Offer[] = [
     maxAdults: 4,
   },
   {
-    id: '2',
+    id: '1',
     title: 'Digital house with garden',
     type: OfferType.Hotel,
     price: 100,
@@ -40,7 +40,7 @@ export const offers: Offer[] = [
     maxAdults: 2,
   },
   {
-    id: '3',
+    id: '2',
     title: 'Hotel with school nearby',
     type: OfferType.House,
     price: 10,
@@ -57,7 +57,7 @@ export const offers: Offer[] = [
     maxAdults: 2,
   },
   {
-    id: '4',
+    id: '3',
     title: 'House or flat idk',
     type: OfferType.Room,
     price: 500,
