@@ -2,6 +2,8 @@ import { OfferCompressed } from '../types/offer.ts';
 import { Link } from 'react-router-dom';
 import '../style.css';
 import PremiumLabel from './premium-label.tsx';
+import { fetchOffer } from '../store/actions.ts';
+import { useAppDispatch } from '../hooks';
 
 
 type PlaceProps = {
@@ -10,6 +12,7 @@ type PlaceProps = {
 };
 
 function OfferCard({offer, onHover}: PlaceProps) {
+  const dispatch = useAppDispatch();
   return (
     <article className="cities__card place-card" onMouseEnter={() => onHover(offer.id)} onMouseLeave={() => onHover(null)}>
       <PremiumLabel visible={offer.isPremium} />
@@ -36,7 +39,7 @@ function OfferCard({offer, onHover}: PlaceProps) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offers/${offer.id}`}>{offer.title}</Link>
+          <Link to={`/offers/${offer.id}`} onClick={() => dispatch(fetchOffer(offer.id))}>{offer.title}</Link>
         </h2>
         <p className="place-card__type text__capital">{offer.type}</p>
       </div>

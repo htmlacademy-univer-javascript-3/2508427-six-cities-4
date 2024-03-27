@@ -9,7 +9,7 @@ export enum OfferType {
   Hotel = 'hotel'
 }
 
-interface OfferBase {
+export interface OfferBase {
   id: string;
   title: string;
   type: OfferType;
