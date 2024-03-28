@@ -1,16 +1,16 @@
 import Header from '../components/header.tsx';
 import Tabs from '../components/tabs.tsx';
-import { OfferCompressed } from '../types/offer.ts';
 import OffersList from '../components/offers-list.tsx';
 import Map from '../components/map.tsx';
 import { useState } from 'react';
-import { cities } from '../mocks/cities.ts';
+import { useAppSelector } from '../hooks';
+import { City } from '../mocks/cities.ts';
 
-type MainPageProps = {
-  offers: OfferCompressed[];
-};
 
-function MainPage({offers}: MainPageProps) {
+function MainPage() {
+  const offers = useAppSelector((state) => state.offers);
+  const currentCityName = useAppSelector((state) => state.currentCityName);
+
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
   const content = offers.length > 0
@@ -18,7 +18,7 @@ function MainPage({offers}: MainPageProps) {
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+          <b className="places__found">{offers.length} places to stay in {currentCityName}</b>
           <form className="places__sorting" action="#" method="get">
             <span className="places__sorting-caption">Sort by</span>
             <span className="places__sorting-type" tabIndex={0}>
@@ -37,7 +37,7 @@ function MainPage({offers}: MainPageProps) {
           <OffersList offers={offers} setActiveOfferId={setActiveOfferId} />
         </section>
         <div className="cities__right-section">
-          <Map location={cities[0].center} offers={offers} specialOfferId={activeOfferId} type="cities" />
+          <Map location={City[currentCityName].center} offers={offers} specialOfferId={activeOfferId} type="cities" />
         </div>
       </div>
     )

@@ -12,7 +12,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={Path.Main} element={<MainPage offers={offersCompressed} />} />
+        <Route path={Path.Main} element={<MainPage />} />
         <Route path={Path.Login} element={<LoginPage />} />
         <Route path={Path.Favourites} element={
           <ProtectedRoute authorizationStatus={AuthorizationStatus.NotAuthorized}>
