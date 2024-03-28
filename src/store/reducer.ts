@@ -5,7 +5,6 @@ import { Offer, OfferCompressed } from '../types/offer.ts';
 import { Review } from '../types/review.ts';
 import { reviews } from '../mocks/reviews.ts';
 import {
-  dropOffer,
   fetchFavourites,
   fetchOffer,
   fetchOffers,
@@ -43,10 +42,6 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchReviews, (state) => {
       state.reviews = reviews;
-    })
-    .addCase(dropOffer, (state) => {
-      state.offer = null;
-      state.suggestions = [];
     })
     .addCase(setCurrentCityName, (state, action) => {
       state.currentCityName = action.payload;

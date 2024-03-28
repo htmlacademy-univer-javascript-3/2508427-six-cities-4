@@ -5,9 +5,14 @@ import PremiumLabel from '../components/premium-label.tsx';
 import { useState } from 'react';
 import Map from '../components/map.tsx';
 import OfferCard from '../components/offer-card.tsx';
-import { useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { useParams } from 'react-router-dom';
+import { fetchOffer } from '../store/actions.ts';
 
 function OfferPage() {
+  const { id } = useParams();
+  const dispatch = useAppDispatch();
+  dispatch(fetchOffer(id!));
   const offer = useAppSelector((state) => state.offer)!;
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const validOffers = offersCompressed.slice(0, 3);
