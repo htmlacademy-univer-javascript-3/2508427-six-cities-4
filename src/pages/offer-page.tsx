@@ -1,16 +1,19 @@
 import Header from '../components/header.tsx';
 import Reviews from '../components/reviews.tsx';
-import { useParams } from 'react-router-dom';
-import { offers, offersCompressed } from '../mocks/offers.ts';
+import { offersCompressed } from '../mocks/offers.ts';
 import PremiumLabel from '../components/premium-label.tsx';
 import { useState } from 'react';
-import { cities } from '../mocks/cities.ts';
 import Map from '../components/map.tsx';
 import OfferCard from '../components/offer-card.tsx';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { useParams } from 'react-router-dom';
+import { fetchOffer } from '../store/actions.ts';
 
 function OfferPage() {
   const { id } = useParams();
-  const offer = offers.filter((x) => x.id === id)[0];
+  const dispatch = useAppDispatch();
+  dispatch(fetchOffer(id!));
+  const offer = useAppSelector((state) => state.offer)!;
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const validOffers = offersCompressed.slice(0, 3);
 
@@ -80,7 +83,7 @@ function OfferPage() {
               <Reviews offerId={offer.id} />
             </div>
           </div>
-          <Map location={cities[0].center} offers={validOffers} specialOfferId={activeOfferId} type="offer" />
+          <Map location={offer.city.center} offers={validOffers} specialOfferId={activeOfferId} type="offer" />
         </section>
         <div className="container">
           <section className="near-places places">
