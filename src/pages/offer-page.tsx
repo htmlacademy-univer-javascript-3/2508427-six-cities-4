@@ -1,21 +1,34 @@
 import Header from '../components/header.tsx';
-import Reviews from '../components/reviews.tsx';
-import { offersCompressed } from '../mocks/offers.ts';
 import PremiumLabel from '../components/premium-label.tsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Map from '../components/map.tsx';
 import OfferCard from '../components/offer-card.tsx';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { useParams } from 'react-router-dom';
-import { fetchOffer } from '../store/actions.ts';
+import { fetchOffer, fetchSuggestions } from '../store/api-actions.ts';
+import ErrorPage from './error-page.tsx';
+import Reviews from '../components/reviews.tsx';
+import { City } from '../settings.ts';
 
 function OfferPage() {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  dispatch(fetchOffer(id!));
-  const offer = useAppSelector((state) => state.offer)!;
+  const { offer, suggestions, currentCityName } = useAppSelector((state) => state);
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
-  const validOffers = offersCompressed.slice(0, 3);
+
+  useEffect(() => {
+    if (id !== undefined) {
+      dispatch(fetchOffer(id));
+      dispatch(fetchSuggestions(id));
+    }
+  }, [id, dispatch]);
+
+  if (id === undefined || offer === null) {
+    return <ErrorPage />;
+  }
+
+  const validOffer = offer;
+  const validOffers = suggestions.slice(0, 3);
 
   return (
     <div className="page">
@@ -25,7 +38,7 @@ function OfferPage() {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {offer.images.map((x) => (
+              {validOffer.images.map((x) => (
                 <div className="offer__image-wrapper" key={x}>
                   <img className="offer__image" src={x} alt="Photo studio"/>
                 </div>))}
@@ -33,9 +46,9 @@ function OfferPage() {
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              <PremiumLabel visible={offer.isPremium} big />
+              <PremiumLabel visible={validOffer.isPremium} big />
               <div className="offer__name-wrapper">
-                <h1 className="offer__name">{offer.title}</h1>
+                <h1 className="offer__name">{validOffer.title}</h1>
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
@@ -45,45 +58,45 @@ function OfferPage() {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: `${Math.ceil(100 * offer.rating / 5)}%`}}></span>
+                  <span style={{width: `${Math.ceil(100 * validOffer.rating / 5)}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">{offer.rating}</span>
+                <span className="offer__rating-value rating__value">{validOffer.rating}</span>
               </div>
               <ul className="offer__features">
-                <li className="offer__feature offer__feature--entire">{offer.type}</li>
-                <li className="offer__feature offer__feature--bedrooms">{offer.bedrooms} Bedrooms</li>
-                <li className="offer__feature offer__feature--adults">Max {offer.maxAdults} adults</li>
+                <li className="offer__feature offer__feature--entire">{validOffer.type}</li>
+                <li className="offer__feature offer__feature--bedrooms">{validOffer.bedrooms} Bedrooms</li>
+                <li className="offer__feature offer__feature--adults">Max {validOffer.maxAdults} adults</li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">&euro;{offer.price}</b>
+                <b className="offer__price-value">&euro;{validOffer.price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {offer.goods.map((x) => <li key={x} className="offer__inside-item">{x}</li>)}
+                  {validOffer.goods.map((x) => <li key={x} className="offer__inside-item">{x}</li>)}
                 </ul>
               </div>
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
-                  <div className={`${offer.host.isPro ? 'offer__avatar-wrapper--pro' : ''} offer__avatar-wrapper user__avatar-wrapper`}>
-                    <img className="offer__avatar user__avatar" src={offer.host.avatarUrl} width="74" height="74" alt="Host avatar"/>
+                  <div className={`${validOffer.host.isPro ? 'offer__avatar-wrapper--pro' : ''} offer__avatar-wrapper user__avatar-wrapper`}>
+                    <img className="offer__avatar user__avatar" src={validOffer.host.avatarUrl} width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="offer__user-name">
-                    {offer.host.name}
+                    {validOffer.host.name}
                   </span>
-                  {offer.host.isPro && <span className="offer__user-status">Pro</span>}
+                  {validOffer.host.isPro && <span className="offer__user-status">Pro</span>}
                 </div>
                 <div className="offer__description">
-                  <p className="offer__text">{offer.description}</p>
+                  <p className="offer__text">{validOffer.description}</p>
                 </div>
               </div>
               <Reviews offerId={offer.id} />
             </div>
           </div>
-          <Map location={offer.city.center} offers={validOffers} specialOfferId={activeOfferId} type="offer" />
+          {<Map location={City[currentCityName].center} offers={validOffers} specialOfferId={activeOfferId} type="offer"/>}
         </section>
         <div className="container">
           <section className="near-places places">

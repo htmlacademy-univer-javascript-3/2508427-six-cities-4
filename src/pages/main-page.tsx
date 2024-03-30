@@ -4,15 +4,21 @@ import OffersList from '../components/offers-list.tsx';
 import Map from '../components/map.tsx';
 import { useState } from 'react';
 import { useAppSelector } from '../hooks';
-import { City } from '../mocks/cities.ts';
+import { City, RequestStatus } from '../settings.ts';
+import Spinner from '../components/spinner.tsx';
 
 
 function MainPage() {
-  const offers = useAppSelector((state) => state.offers);
+  const rawOffers = useAppSelector((state) => state.offers);
   const currentCityName = useAppSelector((state) => state.currentCityName);
-
+  const offersFetchingStatus = useAppSelector((state) => state.offersFetchingStatus);
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
+  if (offersFetchingStatus === RequestStatus.Pending) {
+    return <Spinner />;
+  }
+
+  const offers = rawOffers.filter((x) => x.city.name === currentCityName);
   const content = offers.length > 0
     ? (
       <div className="cities__places-container container">

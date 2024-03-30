@@ -1,25 +1,30 @@
-
 import { ReviewTemplate } from '../types/review.ts';
 import Review from './review.tsx';
-import { ChangeEvent, SyntheticEvent, useState } from 'react';
+import { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react';
 import StarsSelector from './stars-selector.tsx';
-import { reviews } from '../mocks/reviews.ts';
-import { users } from '../mocks/users.ts';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { fetchReviews } from '../store/api-actions.ts';
 
 type ReviewsProps = {
   offerId: string;
 };
 
 function Reviews({offerId}: ReviewsProps) {
-  // API get reviews by offerId
+  const dispatch = useAppDispatch();
+  const { reviews } = useAppSelector((state) => state);
   const [reviewsList, setReviewsList] = useState(reviews);
   const [reviewTemplate, setReviewTemplate] = useState<ReviewTemplate>({rating: 0, comment: ''});
 
+  useEffect(() => {
+    dispatch(fetchReviews(offerId));
+  }, [offerId, dispatch]);
+
   function handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
-    const newReview = {...reviewTemplate, id: '100', date: 'February 2024', user: users[0]};
-    setReviewsList([...reviewsList, newReview]);
-    setReviewTemplate({comment: '', rating: 0});
+    // TODO
+    // const newReview = {...reviewTemplate, id: '100', date: 'February 2024', user: users[0]};
+    // setReviewsList([...reviewsList, newReview]);
+    // setReviewTemplate({comment: '', rating: 0});
   }
 
   function handleStarsInput(rating: number) {
