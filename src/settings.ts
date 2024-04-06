@@ -29,6 +29,13 @@ export enum Path {
   Error = '*'
 }
 
+export enum SortType {
+  Popular = 'Popular',
+  LowToHigh = 'Price: low to high',
+  HighToLow = 'Price: high to low',
+  TopRated = 'Top rated first',
+}
+
 export const City = {
   [CityName.Paris]: {name: CityName.Paris, center: {latitude: 48.8566, longitude: 2.3522, zoom: 10}},
   [CityName.Cologne]: {name: CityName.Cologne, center: {latitude: 50.935173, longitude: 6.953101, zoom: 10}},
