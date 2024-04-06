@@ -11,10 +11,10 @@ import Spinner from '../components/spinner.tsx';
 function MainPage() {
   const rawOffers = useAppSelector((state) => state.offers);
   const currentCityName = useAppSelector((state) => state.currentCityName);
-  const offersFetchingStatus = useAppSelector((state) => state.offersFetchingStatus);
+  const fetchingStatus = useAppSelector((state) => state.fetchingStatus);
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
-  if (offersFetchingStatus === RequestStatus.Pending) {
+  if (fetchingStatus === RequestStatus.Pending) {
     return <Spinner />;
   }
 

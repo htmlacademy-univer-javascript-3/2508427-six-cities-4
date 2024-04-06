@@ -5,29 +5,33 @@ import Map from '../components/map.tsx';
 import OfferCard from '../components/offer-card.tsx';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { useParams } from 'react-router-dom';
-import { fetchOffer, fetchSuggestions } from '../store/api-actions.ts';
+import { fetchOffer } from '../store/api-actions.ts';
 import ErrorPage from './error-page.tsx';
 import Reviews from '../components/reviews.tsx';
-import { City } from '../settings.ts';
+import { City, RequestStatus } from '../settings.ts';
+import Spinner from '../components/spinner.tsx';
 
 function OfferPage() {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const { offer, suggestions, currentCityName } = useAppSelector((state) => state);
+  const { offer, suggestions, reviews, fetchingStatus } = useAppSelector((state) => state);
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
   useEffect(() => {
-    if (id !== undefined) {
+    if (id) {
       dispatch(fetchOffer(id));
-      dispatch(fetchSuggestions(id));
     }
   }, [id, dispatch]);
 
-  if (id === undefined || offer === null) {
+  if (fetchingStatus === RequestStatus.Error) {
     return <ErrorPage />;
   }
 
-  const validOffer = offer;
+  if (fetchingStatus === RequestStatus.Pending) {
+    return <Spinner />;
+  }
+
+  const validOffer = offer!;
   const validOffers = suggestions.slice(0, 3);
 
   return (
@@ -93,10 +97,10 @@ function OfferPage() {
                   <p className="offer__text">{validOffer.description}</p>
                 </div>
               </div>
-              <Reviews offerId={offer.id} />
+              <Reviews reviews={reviews} />
             </div>
           </div>
-          {<Map location={City[currentCityName].center} offers={validOffers} specialOfferId={activeOfferId} type="offer"/>}
+          {<Map location={City[offer!.city.name].center} offers={validOffers} specialOfferId={activeOfferId} type="offer"/>}
         </section>
         <div className="container">
           <section className="near-places places">
