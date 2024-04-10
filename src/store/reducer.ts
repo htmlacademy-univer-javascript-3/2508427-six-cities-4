@@ -1,52 +1,63 @@
-import { offers, offersCompressed } from '../mocks/offers.ts';
-import { CityName } from '../settings.ts';
+import { CityName, RequestStatus } from '../settings.ts';
 import { createReducer } from '@reduxjs/toolkit';
 import { Offer, OfferCompressed } from '../types/offer.ts';
 import { Review } from '../types/review.ts';
-import { reviews } from '../mocks/reviews.ts';
-import {
-  fetchFavourites,
-  fetchOffer,
-  fetchOffers,
-  fetchReviews,
-  fetchSuggestions,
-  setCurrentCityName,
-} from './actions.ts';
+import { fetchFavourites, fetchOffer, fetchOffers } from './api-actions.ts';
+import { setCurrentCityName } from './actions.ts';
 
 const initialState: {
   offers: OfferCompressed[];
-  suggestions: Offer[];
+  suggestions: OfferCompressed[];
   reviews: Review[];
   offer: Offer | null;
   favourites: OfferCompressed[];
   currentCityName: CityName;
+  fetchingStatus: RequestStatus;
 } = {
-  offers: offersCompressed,
+  offers: [],
   suggestions: [],
   reviews: [],
   offer: null,
   favourites: [],
-  currentCityName: CityName.Amsterdam
+  currentCityName: CityName.Amsterdam,
+  fetchingStatus: RequestStatus.Idle
 };
 
 export const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(fetchOffers, (state) => {
-      state.offers = offersCompressed;
+    .addCase(fetchOffers.pending, (state) => {
+      state.fetchingStatus = RequestStatus.Pending;
     })
-    .addCase(fetchOffer, (state, action) => {
-      state.offer = offers.find((offer) => offer.id === action.payload) ?? null;
+    .addCase(fetchOffers.fulfilled, (state, action) => {
+      state.fetchingStatus = RequestStatus.Success;
+      state.offers = action.payload;
     })
-    .addCase(fetchSuggestions, (state, action) => {
-      state.suggestions = offers.filter((offer) => offer.id !== action.payload);
+    .addCase(fetchOffers.rejected, (state) => {
+      state.fetchingStatus = RequestStatus.Error;
     })
-    .addCase(fetchReviews, (state) => {
-      state.reviews = reviews;
+    .addCase(fetchOffer.pending, (state) => {
+      state.fetchingStatus = RequestStatus.Pending;
+    })
+    .addCase(fetchOffer.fulfilled, (state, action) => {
+      state.fetchingStatus = RequestStatus.Success;
+      state.offer = action.payload.offer;
+      state.suggestions = action.payload.suggestions;
+      state.reviews = action.payload.reviews;
+    })
+    .addCase(fetchOffer.rejected, (state) => {
+      state.fetchingStatus = RequestStatus.Error;
+    })
+    .addCase(fetchFavourites.pending, (state) => {
+      state.fetchingStatus = RequestStatus.Pending;
+    })
+    .addCase(fetchFavourites.fulfilled, (state, action) => {
+      state.fetchingStatus = RequestStatus.Success;
+      state.favourites = action.payload;
+    })
+    .addCase(fetchFavourites.rejected, (state) => {
+      state.fetchingStatus = RequestStatus.Error;
     })
     .addCase(setCurrentCityName, (state, action) => {
       state.currentCityName = action.payload;
-    })
-    .addCase(fetchFavourites, (state) => {
-      state.favourites = state.offers.filter((offer) => offer.isFavorite);
     });
 });

@@ -1,12 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ErrorPage from './pages/error-page.tsx';
-import OfferPage from './pages/offer-page.tsx';
 import LoginPage from './pages/login-page.tsx';
-import FavouritesPage from './pages/favourites-page.tsx';
-import ProtectedRoute from './components/protected-route.tsx';
 import { AuthorizationStatus, Path } from './settings.ts';
 import MainPage from './pages/main-page.tsx';
-import { offersCompressed } from './mocks/offers.ts';
+import OfferPage from './pages/offer-page.tsx';
+import ProtectedRoute from './components/protected-route.tsx';
+import FavouritesPage from './pages/favourites-page.tsx';
 
 function App() {
   return (
@@ -16,7 +15,7 @@ function App() {
         <Route path={Path.Login} element={<LoginPage />} />
         <Route path={Path.Favourites} element={
           <ProtectedRoute authorizationStatus={AuthorizationStatus.NotAuthorized}>
-            <FavouritesPage offers={offersCompressed} />
+            <FavouritesPage />
           </ProtectedRoute>
         }
         />
