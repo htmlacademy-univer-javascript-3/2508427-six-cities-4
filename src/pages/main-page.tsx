@@ -27,11 +27,11 @@ const getSortedOffers = (offers: OfferCompressed[], sortType: SortType) => {
 function MainPage() {
   const rawOffers = useAppSelector((state) => state.offers);
   const currentCityName = useAppSelector((state) => state.currentCityName);
-  const offersFetchingStatus = useAppSelector((state) => state.offersFetchingStatus);
+  const fetchingStatus = useAppSelector((state) => state.fetchingStatus);
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const [activeSortType, setActiveSortType] = useState<SortType>(SortType.Popular);
 
-  if (offersFetchingStatus === RequestStatus.Pending) {
+  if (fetchingStatus === RequestStatus.Pending) {
     return <Spinner />;
   }
 

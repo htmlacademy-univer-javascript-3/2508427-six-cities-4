@@ -1,13 +1,10 @@
 import FavouriteLocation from '../components/favourite-location.tsx';
 import Header from '../components/header.tsx';
 import Logo, { LogoType } from '../components/logo.tsx';
-import { OfferCompressed } from '../types/offer.ts';
+import { useAppSelector } from '../hooks';
 
-type FavouritesPageProps = {
-  offers: OfferCompressed[];
-};
-
-function FavouritesPage({offers}: FavouritesPageProps) {
+function FavouritesPage() {
+  const offers = useAppSelector((state) => state.offers);
   const citiesNames = [...new Set(offers.map((x) => x.city.name))];
   const content = citiesNames.length > 0
     ? (

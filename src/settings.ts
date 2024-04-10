@@ -45,14 +45,14 @@ export const City = {
   [CityName.Dusseldorf]: {name: CityName.Dusseldorf, center: {latitude: 51.2277, longitude: 6.7735, zoom: 10}},
 } as const;
 
-export const BackendUrl = 'https://14.design.htmlacademy.pro/six-cities';
+export const BACKEND_URL = 'https://14.design.htmlacademy.pro/six-cities';
 export const RequestTimeout = 5000;
 export const TokenKeyName = 'six-cities-token';
 
 export enum ApiRoute {
-  Offers = `${BackendUrl}/offers`,
-  Reviews = `${BackendUrl}/comments`,
-  Favourites = `${BackendUrl}/favorite`
+  Offers = '/offers',
+  Reviews = '/comments',
+  Favourites = '/favorite'
 }
 
 export enum RequestStatus {

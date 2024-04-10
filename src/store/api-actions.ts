@@ -4,7 +4,18 @@ import { Offer, OfferCompressed } from '../types/offer.ts';
 import { AxiosInstance } from 'axios';
 import { Review } from '../types/review.ts';
 
-export const fetchOffers = createAsyncThunk<OfferCompressed[], undefined, {extra: AxiosInstance}>(
+
+type ThunkApiConfig = {
+  extra: AxiosInstance;
+};
+
+type OfferExtended = {
+  offer: Offer;
+  reviews: Review[];
+  suggestions: OfferCompressed[];
+};
+
+export const fetchOffers = createAsyncThunk<OfferCompressed[], undefined, ThunkApiConfig>(
   `${Namespace.Offers}/fetch`,
   async (_arg, {extra: api}) => {
     const {data} = await api.get<OfferCompressed[]>(ApiRoute.Offers);
@@ -12,31 +23,17 @@ export const fetchOffers = createAsyncThunk<OfferCompressed[], undefined, {extra
   }
 );
 
-export const fetchOffer = createAsyncThunk<Offer, Offer['id'], {extra: AxiosInstance}>(
+export const fetchOffer = createAsyncThunk<OfferExtended, Offer['id'], ThunkApiConfig>(
   `${Namespace.Offer}/fetch`,
   async (offerId, {extra: api}) => {
-    const {data} = await api.get<Offer>(`${ApiRoute.Offers}/${offerId}`);
-    return data;
+    const {data: offer} = await api.get<Offer>(`${ApiRoute.Offers}/${offerId}`);
+    const {data: reviews} = await api.get<Review[]>(`${ApiRoute.Reviews}/${offerId}`);
+    const {data: suggestions} = await api.get<OfferCompressed[]>(`${ApiRoute.Offers}/${offerId}/nearby`);
+    return {offer, reviews, suggestions};
   }
 );
 
-export const fetchReviews = createAsyncThunk<Review[], Offer['id'], {extra: AxiosInstance}>(
-  `${Namespace.Reviews}/fetch`,
-  async (offerId, {extra: api}) => {
-    const {data} = await api.get<Review[]>(`${ApiRoute.Reviews}/${offerId}`);
-    return data;
-  }
-);
-
-export const fetchSuggestions = createAsyncThunk<OfferCompressed[], Offer['id'], {extra: AxiosInstance}>(
-  `${Namespace.Suggestions}/fetch`,
-  async (offerId, {extra: api}) => {
-    const {data} = await api.get<OfferCompressed[]>(`${ApiRoute.Offers}/${offerId}/nearby`);
-    return data;
-  }
-);
-
-export const fetchFavourites = createAsyncThunk<OfferCompressed[], undefined, {extra: AxiosInstance}>(
+export const fetchFavourites = createAsyncThunk<OfferCompressed[], undefined, ThunkApiConfig>(
   `${Namespace.Favourites}/fetch`,
   async (_arg, {extra: api}) => {
     const {data} = await api.get<OfferCompressed[]>(ApiRoute.Favourites);
