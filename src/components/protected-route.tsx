@@ -1,13 +1,14 @@
 import { AuthorizationStatus } from '../settings.ts';
 import { ReactElement } from 'react';
 import { Navigate } from 'react-router-dom';
+import {useAppSelector} from '../hooks';
 
 type ProtectedRouteProps = {
-  authorizationStatus: AuthorizationStatus;
   children: ReactElement;
 };
 
-function ProtectedRoute({authorizationStatus, children}: ProtectedRouteProps) {
+function ProtectedRoute({children}: ProtectedRouteProps) {
+  const { authorizationStatus } = useAppSelector((state) => state);
   return (
     authorizationStatus !== AuthorizationStatus.Authorized
       ? children

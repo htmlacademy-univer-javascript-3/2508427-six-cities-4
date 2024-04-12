@@ -1,4 +1,5 @@
 export enum AuthorizationStatus {
+  Unknown,
   NotAuthorized,
   Authorized
 }
@@ -52,11 +53,11 @@ export const TokenKeyName = 'six-cities-token';
 export enum ApiRoute {
   Offers = '/offers',
   Reviews = '/comments',
-  Favourites = '/favorite'
+  Favourites = '/favorite',
+  Login = '/login'
 }
 
 export enum RequestStatus {
-  Idle,
   Pending,
   Success,
   Error
