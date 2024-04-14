@@ -1,7 +1,7 @@
-import { AuthorizationStatus } from '../settings.ts';
+import { AuthorizationStatus } from '../../settings.ts';
 import { ReactElement } from 'react';
 import { Navigate } from 'react-router-dom';
-import {useAppSelector} from '../hooks';
+import {useAppSelector} from '../../hooks';
 
 type ProtectedRouteProps = {
   children: ReactElement;

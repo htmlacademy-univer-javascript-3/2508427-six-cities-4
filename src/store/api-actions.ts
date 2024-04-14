@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ApiRoute, Namespace } from '../settings.ts';
-import {Offer, OfferCompressed, OfferFavouriteTemplate} from '../types/offer.ts';
+import {Offer, OfferCompressed, OfferExtended, OfferFavouriteTemplate} from '../types/offer.ts';
 import { AxiosInstance } from 'axios';
 import {Review, ReviewPost} from '../types/review.ts';
 import {UserIdentity, UserLogin} from '../types/user.ts';
@@ -9,12 +9,6 @@ import {deleteToken, setToken} from '../services/token.ts';
 
 type ThunkApiConfig = {
   extra: AxiosInstance;
-};
-
-type OfferExtended = {
-  offer: Offer;
-  reviews: Review[];
-  suggestions: OfferCompressed[];
 };
 
 export const fetchOffers = createAsyncThunk<OfferCompressed[], undefined, ThunkApiConfig>(

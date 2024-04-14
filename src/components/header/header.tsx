@@ -1,8 +1,8 @@
-import Logo from './logo.tsx';
-import {useAppDispatch, useAppSelector} from '../hooks';
-import {AuthorizationStatus, LogoType, Path} from '../settings.ts';
+import Logo from '../logo/logo.tsx';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {AuthorizationStatus, LogoType, Path} from '../../settings.ts';
 import {Link} from 'react-router-dom';
-import {logout} from '../store/api-actions.ts';
+import {logout} from '../../store/api-actions.ts';
 
 
 function Header() {

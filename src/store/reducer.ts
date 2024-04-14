@@ -120,7 +120,7 @@ export const reducer = createReducer(initialState, (builder) => {
       state.authorizationStatus = AuthorizationStatus.NotAuthorized;
     })
     .addCase(changeFavourite.fulfilled, (state, action) => {
-      const index = state.offers.findIndex((x) => x.id === action.payload.id);
+      const index = state.offers.findIndex((offer) => offer.id === action.payload.id);
       if (index !== -1) {
         state.offers[index].isFavorite = action.payload.isFavorite;
       }

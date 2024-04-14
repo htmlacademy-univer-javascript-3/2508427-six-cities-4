@@ -1,10 +1,10 @@
-import Header from '../components/header.tsx';
-import Logo from '../components/logo.tsx';
-import {useAppDispatch, useAppSelector} from '../hooks';
-import {LogoType} from '../settings.ts';
+import Header from '../../components/header/header.tsx';
+import Logo from '../../components/logo/logo.tsx';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {LogoType} from '../../settings.ts';
 import {useEffect} from 'react';
-import {fetchFavourites} from '../store/api-actions.ts';
-import FavouriteLocation from '../components/favourite-location.tsx';
+import {fetchFavourites} from '../../store/api-actions.ts';
+import FavouriteLocation from '../../components/favourite-location/favourite-location.tsx';
 
 function FavouritesPage() {
   const dispatch = useAppDispatch();
@@ -14,7 +14,7 @@ function FavouritesPage() {
   }, [dispatch]);
 
   const favourites = useAppSelector((state) => state.favourites);
-  const citiesNames = [...new Set(favourites.map((x) => x.city.name))];
+  const citiesNames = [...new Set(favourites.map((offer) => offer.city.name))];
 
   const content = citiesNames.length > 0
     ? (
@@ -25,7 +25,7 @@ function FavouritesPage() {
             <FavouriteLocation
               key={cityName}
               cityName={cityName}
-              offers={favourites.filter((x) => x.city.name === cityName)}
+              offers={favourites.filter((offer) => offer.city.name === cityName)}
             />))}
         </ul>
       </section>

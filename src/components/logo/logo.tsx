@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import {LogoType, Path} from '../settings.ts';
+import {LogoType, Path} from '../../settings.ts';
 
 type LogoProps = {
   type: LogoType;

@@ -1,9 +1,9 @@
-import { OfferCompressed } from '../types/offer.ts';
+import { OfferCompressed } from '../../types/offer.ts';
 import { Link } from 'react-router-dom';
-import '../style.css';
-import PremiumLabel from './premium-label.tsx';
-import {changeFavourite} from '../store/api-actions.ts';
-import {useAppDispatch} from '../hooks';
+import '../../style.css';
+import PremiumLabel from '../premium-label/premium-label.tsx';
+import {changeFavourite} from '../../store/api-actions.ts';
+import {useAppDispatch} from '../../hooks';
 
 
 type PlaceProps = {

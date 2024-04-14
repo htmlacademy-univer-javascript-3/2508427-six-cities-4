@@ -1,7 +1,7 @@
-import useMap from '../hooks/use-map.tsx';
+import useMap from '../../hooks/use-map.tsx';
 import { useEffect, useRef } from 'react';
-import { OfferCompressed } from '../types/offer.ts';
-import { Location } from '../types/location.ts';
+import { OfferCompressed } from '../../types/offer.ts';
+import { Location } from '../../types/location.ts';
 import { Icon, layerGroup, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 

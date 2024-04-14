@@ -1,5 +1,5 @@
-import OfferCardFavourite from './offer-card-favourite.tsx';
-import { OfferCompressed } from '../types/offer.ts';
+import OfferCardFavourite from '../offer-card-favourite/offer-card-favourite.tsx';
+import { OfferCompressed } from '../../types/offer.ts';
 
 type FavouriteLocationProps = {
   cityName: string;
@@ -17,7 +17,7 @@ function FavouriteLocation({cityName, offers}: FavouriteLocationProps) {
         </div>
       </div>
       <div className="favorites__places">
-        {offers.map((x) => <OfferCardFavourite key={x.id} offer={x} />)}
+        {offers.map((offer) => <OfferCardFavourite key={offer.id} offer={offer} />)}
       </div>
     </li>
   );

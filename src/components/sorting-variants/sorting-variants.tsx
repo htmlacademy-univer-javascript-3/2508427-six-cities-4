@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { SortType } from '../settings.ts';
-import SortingVariant from './sorting-variant.tsx';
+import { SortType } from '../../settings.ts';
+import SortingVariant from '../sorting-variant/sorting-variant.tsx';
 
 type SortingVariantsProps = {
   activeSortType: SortType;
@@ -25,9 +25,9 @@ function SortingVariants({activeSortType, setActiveSortType}: SortingVariantsPro
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${active ? 'places__options--opened' : ''}`}>
-        {Array.from(Object.values(SortType)).map((x) =>
+        {Array.from(Object.values(SortType)).map((sortType) =>
           (
-            <SortingVariant key={x} sortType={x} activeSortType={activeSortType} setSortType={setSortType} />
+            <SortingVariant key={sortType} sortType={sortType} activeSortType={activeSortType} setSortType={setSortType} />
           ))}
       </ul>
     </form>

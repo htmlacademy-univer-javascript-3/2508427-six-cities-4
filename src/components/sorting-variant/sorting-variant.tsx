@@ -1,4 +1,4 @@
-import { SortType } from '../settings.ts';
+import { SortType } from '../../settings.ts';
 
 type SortingVariantProps = {
   sortType: SortType;

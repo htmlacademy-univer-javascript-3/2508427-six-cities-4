@@ -46,8 +46,8 @@ export const City = {
 } as const;
 
 export const BACKEND_URL = 'https://14.design.htmlacademy.pro/six-cities';
-export const RequestTimeout = 5000;
-export const TokenKeyName = 'six-cities-token';
+export const REQUEST_TIMEOUT = 5000;
+export const TOKEN_KEY_NAME = 'six-cities-token';
 
 export enum ApiRoute {
   Offers = '/offers',

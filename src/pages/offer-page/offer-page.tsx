@@ -1,14 +1,14 @@
-import Header from '../components/header.tsx';
-import PremiumLabel from '../components/premium-label.tsx';
+import Header from '../../components/header/header.tsx';
+import PremiumLabel from '../../components/premium-label/premium-label.tsx';
 import {useEffect, useState} from 'react';
-import Map from '../components/map.tsx';
-import OfferCard from '../components/offer-card.tsx';
-import {useAppDispatch, useAppSelector} from '../hooks';
+import Map from '../../components/map/map.tsx';
+import OfferCard from '../../components/offer-card/offer-card.tsx';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useNavigate, useParams} from 'react-router-dom';
-import {fetchOffer} from '../store/api-actions.ts';
-import Reviews from '../components/reviews.tsx';
-import {City, RequestStatus} from '../settings.ts';
-import Spinner from '../components/spinner.tsx';
+import {fetchOffer} from '../../store/api-actions.ts';
+import Reviews from '../../components/reviews/reviews.tsx';
+import {City, RequestStatus} from '../../settings.ts';
+import Spinner from '../../components/spinner/spinner.tsx';
 
 function OfferPage() {
   const dispatch = useAppDispatch();
@@ -37,9 +37,9 @@ function OfferPage() {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {validOffer.images.map((x) => (
-                <div className="offer__image-wrapper" key={x}>
-                  <img className="offer__image" src={x} alt="Photo studio"/>
+              {validOffer.images.map((imagePath) => (
+                <div className="offer__image-wrapper" key={imagePath}>
+                  <img className="offer__image" src={imagePath} alt="Photo studio"/>
                 </div>))}
             </div>
           </div>
@@ -74,7 +74,7 @@ function OfferPage() {
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {validOffer.goods.map((x) => <li key={x} className="offer__inside-item">{x}</li>)}
+                  {validOffer.goods.map((good) => <li key={good} className="offer__inside-item">{good}</li>)}
                 </ul>
               </div>
               <div className="offer__host">
@@ -99,7 +99,7 @@ function OfferPage() {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {validOffers.map((x) => <OfferCard key={x.id} offer={x} onHover={setActiveOfferId}/>)}
+              {validOffers.map((card) => <OfferCard key={card.id} offer={card} onHover={setActiveOfferId}/>)}
             </div>
           </section>
         </div>

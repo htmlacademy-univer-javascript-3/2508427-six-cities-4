@@ -1,10 +1,10 @@
-import {ReviewTemplate} from '../types/review.ts';
-import Review from './review.tsx';
+import {ReviewTemplate} from '../../types/review.ts';
+import Review from '../review/review.tsx';
 import {ChangeEvent, SyntheticEvent, useState} from 'react';
-import StarsSelector from './stars-selector.tsx';
-import {useAppDispatch, useAppSelector} from '../hooks';
-import {AuthorizationStatus} from '../settings.ts';
-import {sendReview} from '../store/api-actions.ts';
+import StarsSelector from '../stars-selector/stars-selector.tsx';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {AuthorizationStatus} from '../../settings.ts';
+import {sendReview} from '../../store/api-actions.ts';
 
 
 function Reviews() {
@@ -29,7 +29,7 @@ function Reviews() {
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ul className="reviews__list">
-        {reviews.map((x) => <Review key={x.id} review={x} />)}
+        {reviews.map((review) => <Review key={review.id} review={review} />)}
       </ul>
       {authorizationStatus === AuthorizationStatus.Authorized && (
         <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>

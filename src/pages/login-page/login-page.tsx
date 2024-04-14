@@ -1,7 +1,7 @@
-import {useAppDispatch, useAppSelector} from '../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {ChangeEvent, FormEvent, useEffect, useState} from 'react';
-import {login} from '../store/api-actions.ts';
-import {AuthorizationStatus, Path} from '../settings.ts';
+import {login} from '../../store/api-actions.ts';
+import {AuthorizationStatus, Path} from '../../settings.ts';
 import {useNavigate} from 'react-router-dom';
 
 function LoginPage() {

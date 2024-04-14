@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Path } from '../settings.ts';
+import { Path } from '../../settings.ts';
 
 function ErrorPage() {
   return (
