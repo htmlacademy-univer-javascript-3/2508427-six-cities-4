@@ -4,19 +4,19 @@ import OffersList from '../components/offers-list.tsx';
 import Map from '../components/map.tsx';
 import { useState } from 'react';
 import { useAppSelector } from '../hooks';
-import { City, RequestStatus, SortType } from '../settings.ts';
+import { City, RequestStatus, SortOption } from '../settings.ts';
 import Spinner from '../components/spinner.tsx';
 import SortingVariants from '../components/sorting-variants.tsx';
 import { OfferCompressed } from '../types/offer.ts';
 
 
-const getSortedOffers = (offers: OfferCompressed[], sortType: SortType) => {
+const getSortedOffers = (offers: OfferCompressed[], sortType: SortOption) => {
   switch (sortType) {
-    case SortType.LowToHigh:
+    case SortOption.LowToHigh:
       return offers.sort((a, b) => a.price - b.price);
-    case SortType.HighToLow:
+    case SortOption.HighToLow:
       return offers.sort((a, b) => b.price - a.price);
-    case SortType.TopRated:
+    case SortOption.TopRated:
       return offers.sort((a, b) => b.rating - a.rating);
     default:
       return offers;
@@ -29,7 +29,7 @@ function MainPage() {
   const currentCityName = useAppSelector((state) => state.currentCityName);
   const fetchingStatus = useAppSelector((state) => state.fetchingStatus);
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
-  const [activeSortType, setActiveSortType] = useState<SortType>(SortType.Popular);
+  const [activeSortType, setActiveSortType] = useState<SortOption>(SortOption.Popular);
 
   if (fetchingStatus === RequestStatus.Pending) {
     return <Spinner />;
