@@ -25,7 +25,7 @@ function SortingVariants({activeSortType, setActiveSortType}: SortingVariantsPro
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${active ? 'places__options--opened' : ''}`}>
-        {Array.from(Object.values(SortType)).map((x) =>
+        {Object.values(SortType).map((x) =>
           (
             <SortingVariant key={x} sortType={x} activeSortType={activeSortType} setSortType={setSortType} />
           ))}

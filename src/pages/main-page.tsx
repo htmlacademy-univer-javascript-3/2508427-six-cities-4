@@ -11,16 +11,16 @@ import { OfferCompressed } from '../types/offer.ts';
 
 
 const getSortedOffers = (offers: OfferCompressed[], sortType: SortType) => {
-  if (sortType === SortType.LowToHigh) {
-    return offers.sort((a, b) => a.price - b.price);
+  switch (sortType) {
+    case SortType.LowToHigh:
+      return offers.sort((a, b) => a.price - b.price);
+    case SortType.HighToLow:
+      return offers.sort((a, b) => b.price - a.price);
+    case SortType.TopRated:
+      return offers.sort((a, b) => b.rating - a.rating);
+    default:
+      return offers;
   }
-  if (sortType === SortType.HighToLow) {
-    return offers.sort((a, b) => b.price - a.price);
-  }
-  if (sortType === SortType.TopRated) {
-    return offers.sort((a, b) => b.rating - a.rating);
-  }
-  return offers;
 };
 
 
