@@ -10,7 +10,7 @@ type ProtectedRouteProps = {
 function ProtectedRoute({children}: ProtectedRouteProps) {
   const { authorizationStatus } = useAppSelector((state) => state);
   return (
-    authorizationStatus !== AuthorizationStatus.Authorized
+    authorizationStatus === AuthorizationStatus.Authorized
       ? children
       : <Navigate to="/login" />
   );

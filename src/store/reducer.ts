@@ -2,7 +2,16 @@ import {AuthorizationStatus, CityName, RequestStatus} from '../settings.ts';
 import {createReducer} from '@reduxjs/toolkit';
 import {Offer, OfferCompressed} from '../types/offer.ts';
 import {Review} from '../types/review.ts';
-import {checkAuth, fetchFavourites, fetchOffer, fetchOffers, login, logout, sendReview} from './api-actions.ts';
+import {
+  changeFavourite,
+  checkAuth,
+  fetchFavourites,
+  fetchOffer,
+  fetchOffers,
+  login,
+  logout,
+  sendReview
+} from './api-actions.ts';
 import {setCurrentCityName} from './actions.ts';
 import {UserIdentity} from '../types/user.ts';
 
@@ -109,5 +118,11 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(logout.fulfilled, (state) => {
       state.user = null;
       state.authorizationStatus = AuthorizationStatus.NotAuthorized;
+    })
+    .addCase(changeFavourite.fulfilled, (state, action) => {
+      const index = state.offers.findIndex((x) => x.id === action.payload.id);
+      if (index !== -1) {
+        state.offers[index].isFavorite = action.payload.isFavorite;
+      }
     });
 });

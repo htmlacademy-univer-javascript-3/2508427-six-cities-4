@@ -33,3 +33,8 @@ export interface Offer extends OfferBase {
   images: string[];
   maxAdults: number;
 }
+
+export interface OfferFavouriteTemplate {
+  offerId: string;
+  status: number;
+}

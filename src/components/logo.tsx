@@ -1,10 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Path } from '../settings.ts';
-
-export enum LogoType {
-  Header,
-  Footer
-}
+import {LogoType, Path} from '../settings.ts';
 
 type LogoProps = {
   type: LogoType;

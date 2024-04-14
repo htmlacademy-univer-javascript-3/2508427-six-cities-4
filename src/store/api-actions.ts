@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ApiRoute, Namespace } from '../settings.ts';
-import { Offer, OfferCompressed } from '../types/offer.ts';
+import {Offer, OfferCompressed, OfferFavouriteTemplate} from '../types/offer.ts';
 import { AxiosInstance } from 'axios';
 import {Review, ReviewPost} from '../types/review.ts';
 import {UserIdentity, UserLogin} from '../types/user.ts';
@@ -74,4 +74,12 @@ export const sendReview = createAsyncThunk<Review, ReviewPost, ThunkApiConfig>(
     const {data} = await api.post<Review>(`${ApiRoute.Reviews}/${reviewPost.offerId}`, reviewPost.template);
     return data;
   },
+);
+
+export const changeFavourite = createAsyncThunk<OfferCompressed, OfferFavouriteTemplate, ThunkApiConfig>(
+  `${Namespace.Favourites}/change`,
+  async (offerFavouriteTemplate: OfferFavouriteTemplate, {extra: api}) => {
+    const {data} = await api.post<OfferCompressed>(`${ApiRoute.Favourites}/${offerFavouriteTemplate.offerId}/${offerFavouriteTemplate.status}`);
+    return data;
+  }
 );

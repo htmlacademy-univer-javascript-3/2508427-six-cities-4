@@ -11,10 +11,15 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={Path.Main} element={<MainPage />} />
         <Route path={Path.Login} element={<LoginPage />} />
-        <Route path={Path.Favourites} element={<ProtectedRoute><FavouritesPage /></ProtectedRoute>}/>
+        <Route path={Path.Favourites} element={
+          <ProtectedRoute>
+            <FavouritesPage />
+          </ProtectedRoute>
+        }
+        />
         <Route path={Path.OfferById} element={<OfferPage />} />
+        <Route path={Path.Main} element={<MainPage />} />
         <Route path={Path.Error} element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>

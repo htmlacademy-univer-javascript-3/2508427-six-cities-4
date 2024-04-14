@@ -16,7 +16,6 @@ export enum CityName {
 export enum Namespace {
   Offers = 'Offers',
   Offer = 'Offer',
-  Suggestions = 'Suggestions',
   Favourites = 'Favourites',
   Reviews = 'Reviews',
   User = 'User',
@@ -62,4 +61,9 @@ export enum RequestStatus {
   Pending,
   Success,
   Error
+}
+
+export enum LogoType {
+  Header,
+  Footer
 }
