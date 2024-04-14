@@ -2,7 +2,7 @@ import {AuthorizationStatus, CityName, RequestStatus} from '../settings.ts';
 import {createReducer} from '@reduxjs/toolkit';
 import {Offer, OfferCompressed} from '../types/offer.ts';
 import {Review} from '../types/review.ts';
-import {checkAuth, fetchFavourites, fetchOffer, fetchOffers, login} from './api-actions.ts';
+import {checkAuth, fetchFavourites, fetchOffer, fetchOffers, login, logout, sendReview} from './api-actions.ts';
 import {setCurrentCityName} from './actions.ts';
 import {UserIdentity} from '../types/user.ts';
 
@@ -16,6 +16,7 @@ const initialState: {
   fetchingOffersStatus: RequestStatus;
   fetchingOfferStatus: RequestStatus;
   fetchingFavouritesStatus: RequestStatus;
+  sendingReviewStatus: RequestStatus;
   authorizationStatus: AuthorizationStatus;
   user: UserIdentity | null;
 } = {
@@ -28,6 +29,7 @@ const initialState: {
   fetchingOffersStatus: RequestStatus.Pending,
   fetchingOfferStatus: RequestStatus.Pending,
   fetchingFavouritesStatus: RequestStatus.Pending,
+  sendingReviewStatus: RequestStatus.Pending,
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null
 };
@@ -91,6 +93,20 @@ export const reducer = createReducer(initialState, (builder) => {
       state.authorizationStatus = AuthorizationStatus.Authorized;
     })
     .addCase(login.rejected, (state) => {
+      state.user = null;
+      state.authorizationStatus = AuthorizationStatus.NotAuthorized;
+    })
+    .addCase(sendReview.pending, (state) => {
+      state.sendingReviewStatus = RequestStatus.Pending;
+    })
+    .addCase(sendReview.fulfilled, (state, action) => {
+      state.reviews.push(action.payload);
+      state.sendingReviewStatus = RequestStatus.Success;
+    })
+    .addCase(sendReview.rejected, (state) => {
+      state.sendingReviewStatus = RequestStatus.Error;
+    })
+    .addCase(logout.fulfilled, (state) => {
       state.user = null;
       state.authorizationStatus = AuthorizationStatus.NotAuthorized;
     });

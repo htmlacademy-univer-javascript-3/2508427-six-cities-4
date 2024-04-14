@@ -12,3 +12,8 @@ export interface ReviewTemplate {
   comment: string;
   rating: number;
 }
+
+export interface ReviewPost {
+  offerId: string;
+  template: ReviewTemplate;
+}

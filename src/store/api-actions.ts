@@ -2,9 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ApiRoute, Namespace } from '../settings.ts';
 import { Offer, OfferCompressed } from '../types/offer.ts';
 import { AxiosInstance } from 'axios';
-import { Review } from '../types/review.ts';
+import {Review, ReviewPost} from '../types/review.ts';
 import {UserIdentity, UserLogin} from '../types/user.ts';
-import {setToken} from '../services/token.ts';
+import {deleteToken, setToken} from '../services/token.ts';
 
 
 type ThunkApiConfig = {
@@ -56,6 +56,22 @@ export const login = createAsyncThunk<UserIdentity, UserLogin, ThunkApiConfig>(
   async (userLogin: UserLogin, {extra: api}) => {
     const {data} = await api.post<UserIdentity>(ApiRoute.Login, userLogin);
     setToken(data.token);
+    return data;
+  },
+);
+
+export const logout = createAsyncThunk<void, undefined, ThunkApiConfig>(
+  `${Namespace.User}/logout`,
+  async (_arg, {extra: api}) => {
+    await api.delete(ApiRoute.Logout);
+    deleteToken();
+  },
+);
+
+export const sendReview = createAsyncThunk<Review, ReviewPost, ThunkApiConfig>(
+  `${Namespace.Reviews}/post`,
+  async (reviewPost: ReviewPost, {extra: api}) => {
+    const {data} = await api.post<Review>(`${ApiRoute.Reviews}/${reviewPost.offerId}`, reviewPost.template);
     return data;
   },
 );

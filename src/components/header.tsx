@@ -1,10 +1,17 @@
 import Logo, { LogoType } from './logo.tsx';
-import { useAppSelector } from '../hooks';
+import {useAppDispatch, useAppSelector} from '../hooks';
 import {AuthorizationStatus, Path} from '../settings.ts';
 import {Link} from 'react-router-dom';
+import {logout} from '../store/api-actions.ts';
 
 
 function Header() {
+  const dispatch = useAppDispatch();
+
+  function sendLogoutAction() {
+    dispatch(logout());
+  }
+
   const { authorizationStatus, user } = useAppSelector((state) => state);
   const authContent = authorizationStatus === AuthorizationStatus.Authorized
     ? (
@@ -18,9 +25,9 @@ function Header() {
           </a>
         </li>
         <li className="header__nav-item">
-          <a className="header__nav-link" href="#">
+          <Link className="header__nav-link" to={Path.Main} onClick={sendLogoutAction}>
             <span className="header__signout">Sign out</span>
-          </a>
+          </Link>
         </li>
       </ul>
     )
