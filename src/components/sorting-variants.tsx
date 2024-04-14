@@ -1,16 +1,15 @@
 import { useState } from 'react';
-import { SortType } from '../settings.ts';
-import SortingVariant from './sorting-variant.tsx';
+import { SortOption } from '../settings.ts';
 
 type SortingVariantsProps = {
-  activeSortType: SortType;
-  setActiveSortType: (sortType: SortType) => void;
+  activeSortType: SortOption;
+  setActiveSortType: (sortType: SortOption) => void;
 };
 
 function SortingVariants({activeSortType, setActiveSortType}: SortingVariantsProps) {
   const [active, setActive] = useState<boolean>(false);
 
-  function setSortType(sortType: SortType) {
+  function setSortType(sortType: SortOption) {
     setActiveSortType(sortType);
     setActive(!active);
   }
@@ -25,10 +24,7 @@ function SortingVariants({activeSortType, setActiveSortType}: SortingVariantsPro
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${active ? 'places__options--opened' : ''}`}>
-        {Array.from(Object.values(SortType)).map((x) =>
-          (
-            <SortingVariant key={x} sortType={x} activeSortType={activeSortType} setSortType={setSortType} />
-          ))}
+        {Object.values(SortOption).map((option) => (<li key={option} className={`places__option ${option === activeSortType ? 'places__option--active' : ''}`} onClick={() => setSortType(option)}>{option}</li>))}
       </ul>
     </form>
   );

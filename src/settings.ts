@@ -30,7 +30,7 @@ export enum Path {
   Error = '*'
 }
 
-export enum SortType {
+export enum SortOption {
   Popular = 'Popular',
   LowToHigh = 'Price: low to high',
   HighToLow = 'Price: high to low',
