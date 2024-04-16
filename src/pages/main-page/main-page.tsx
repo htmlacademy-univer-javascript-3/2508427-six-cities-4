@@ -2,7 +2,17 @@ import Header from '../../components/header/header.tsx';
 import Tabs from '../../components/tabs/tabs.tsx';
 import OffersList from '../../components/offers-list/offers-list.tsx';
 import Map from '../../components/map/map.tsx';
+import Header from '../components/header.tsx';
+import Tabs from '../components/tabs.tsx';
+import OffersList from '../components/offers-list.tsx';
+import Map from '../components/map.tsx';
+import { City, RequestStatus, SortOption } from '../settings.ts';
 import {useEffect, useState} from 'react';
+import {useAppDispatch, useAppSelector} from '../hooks';
+import Spinner from '../components/spinner.tsx';
+import SortingVariants from '../components/sorting-variants.tsx';
+import { OfferCompressed } from '../types/offer.ts';
+import {fetchOffers} from '../store/api-actions.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import { City, RequestStatus, SortType } from '../../settings.ts';
 import Spinner from '../../components/spinner/spinner.tsx';
@@ -11,17 +21,17 @@ import { OfferCompressed } from '../../types/offer.ts';
 import {fetchOffers} from '../../store/api-actions.ts';
 
 
-const getSortedOffers = (offers: OfferCompressed[], sortType: SortType) => {
-  if (sortType === SortType.LowToHigh) {
-    return offers.sort((offerA, offerB) => offerA.price - offerB.price);
+const getSortedOffers = (offers: OfferCompressed[], sortType: SortOption) => {
+  switch (sortType) {
+    case SortOption.LowToHigh:
+      return offers.sort((a, b) => a.price - b.price);
+    case SortOption.HighToLow:
+      return offers.sort((a, b) => b.price - a.price);
+    case SortOption.TopRated:
+      return offers.sort((a, b) => b.rating - a.rating);
+    default:
+      return offers;
   }
-  if (sortType === SortType.HighToLow) {
-    return offers.sort((offerA, offerB) => offerB.price - offerA.price);
-  }
-  if (sortType === SortType.TopRated) {
-    return offers.sort((offerA, offerB) => offerB.rating - offerA.rating);
-  }
-  return offers;
 };
 
 
@@ -29,7 +39,7 @@ function MainPage() {
   const dispatch = useAppDispatch();
   const {offers, currentCityName, fetchingOffersStatus} = useAppSelector((state) => state);
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
-  const [activeSortType, setActiveSortType] = useState<SortType>(SortType.Popular);
+  const [activeSortType, setActiveSortType] = useState<SortOption>(SortOption.Popular);
 
   useEffect(() => {
     dispatch(fetchOffers());
