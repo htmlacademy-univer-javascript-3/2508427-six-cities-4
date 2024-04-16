@@ -2,22 +2,12 @@ import Header from '../../components/header/header.tsx';
 import Tabs from '../../components/tabs/tabs.tsx';
 import OffersList from '../../components/offers-list/offers-list.tsx';
 import Map from '../../components/map/map.tsx';
-import Header from '../components/header.tsx';
-import Tabs from '../components/tabs.tsx';
-import OffersList from '../components/offers-list.tsx';
-import Map from '../components/map.tsx';
-import { City, RequestStatus, SortOption } from '../settings.ts';
+import { City, RequestStatus, SortOption } from '../../settings.ts';
 import {useEffect, useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../hooks';
-import Spinner from '../components/spinner.tsx';
-import SortingVariants from '../components/sorting-variants.tsx';
-import { OfferCompressed } from '../types/offer.ts';
-import {fetchOffers} from '../store/api-actions.ts';
+import { OfferCompressed } from '../../types/offer.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import { City, RequestStatus, SortType } from '../../settings.ts';
 import Spinner from '../../components/spinner/spinner.tsx';
 import SortingVariants from '../../components/sorting-variants/sorting-variants.tsx';
-import { OfferCompressed } from '../../types/offer.ts';
 import {fetchOffers} from '../../store/api-actions.ts';
 
 
