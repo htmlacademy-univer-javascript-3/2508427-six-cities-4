@@ -25,8 +25,7 @@ function SortingVariants({activeSortType, setActiveSortType}: SortingVariantsPro
       </span>
       <ul className={`places__options places__options--custom ${active ? 'places__options--opened' : ''}`}>
         {Object.values(SortOption).map((option) => (
-          <li key={option} className={`places__option ${option === activeSortType ? 'places__option--active' : ''}`}
-              onClick={() => setSortType(option)}>{option}</li>))}
+          <li key={option} className={`places__option ${option === activeSortType ? 'places__option--active' : ''}`} onClick={() => setSortType(option)}>{option}</li>))}
       </ul>
     </form>
   );

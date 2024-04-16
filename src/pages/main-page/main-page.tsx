@@ -48,8 +48,7 @@ function MainPage() {
           <OffersList offers={sortedOffers} setActiveOfferId={setActiveOfferId}/>
         </section>
         <div className="cities__right-section">
-          <Map location={City[currentCityName].center} offers={filteredOffers} specialOfferId={activeOfferId}
-               type="cities"/>
+          <Map location={City[currentCityName].center} offers={filteredOffers} specialOfferId={activeOfferId} type="cities"/>
         </div>
       </div>
     )
@@ -58,8 +57,7 @@ function MainPage() {
         <section className="cities__no-places">
           <div className="cities__status-wrapper tabs__content">
             <b className="cities__status">No places to stay available</b>
-            <p className="cities__status-description">We could not find any property available at the moment in
-              Amsterdam</p>
+            <p className="cities__status-description">We could not find any property available at the moment in Amsterdam</p>
           </div>
         </section>
         <div className="cities__right-section"></div>

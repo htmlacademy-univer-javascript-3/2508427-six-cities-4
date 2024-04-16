@@ -80,10 +80,8 @@ function OfferPage() {
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
-                  <div
-                    className={`${validOffer.host.isPro ? 'offer__avatar-wrapper--pro' : ''} offer__avatar-wrapper user__avatar-wrapper`}>
-                    <img className="offer__avatar user__avatar" src={validOffer.host.avatarUrl} width="74" height="74"
-                         alt="Host avatar"/>
+                  <div className={`${validOffer.host.isPro ? 'offer__avatar-wrapper--pro' : ''} offer__avatar-wrapper user__avatar-wrapper`}>
+                    <img className="offer__avatar user__avatar" src={validOffer.host.avatarUrl} width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="offer__user-name">{validOffer.host.name}</span>
                   {validOffer.host.isPro && <span className="offer__user-status">Pro</span>}
@@ -95,8 +93,7 @@ function OfferPage() {
               <Reviews/>
             </div>
           </div>
-          {<Map location={City[offer!.city.name].center} offers={validOffers} specialOfferId={activeOfferId}
-                type="offer"/>}
+          {<Map location={City[offer!.city.name].center} offers={validOffers} specialOfferId={activeOfferId} type="offer"/>}
         </section>
         <div className="container">
           <section className="near-places places">
