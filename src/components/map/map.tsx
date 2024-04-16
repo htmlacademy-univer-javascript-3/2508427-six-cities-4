@@ -1,8 +1,8 @@
 import useMap from '../../hooks/use-map.tsx';
-import { useEffect, useRef } from 'react';
-import { OfferCompressed } from '../../types/offer.ts';
-import { Location } from '../../types/location.ts';
-import { Icon, layerGroup, Marker } from 'leaflet';
+import {useEffect, useRef} from 'react';
+import {OfferCompressed} from '../../types/offer.ts';
+import {Location} from '../../types/location.ts';
+import {Icon, layerGroup, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 
@@ -55,7 +55,7 @@ function Map({location, offers, specialOfferId, type}: MapProps) {
     }
   }, [map, offers, specialOfferId]);
 
-  return <section className={`${type}__map map`} ref={mapRef} />;
+  return <section className={`${type}__map map`} ref={mapRef}/>;
 }
 
 export default Map;

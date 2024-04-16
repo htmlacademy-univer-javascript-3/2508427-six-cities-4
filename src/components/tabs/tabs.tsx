@@ -1,6 +1,6 @@
-import { CityName } from '../../settings.ts';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setCurrentCityName } from '../../store/actions.ts';
+import {CityName} from '../../settings.ts';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {setCurrentCityName} from '../../store/actions.ts';
 
 
 function Tabs() {
@@ -15,7 +15,9 @@ function Tabs() {
           {Object.values(CityName).map((cityName) =>
             (
               <li onClick={() => handleTabClick(cityName)} className="locations__item" key={cityName}>
-                <a className={`locations__item-link tabs__item ${currentCityName === cityName ? 'tabs__item--active' : ''}`} href="#">
+                <a
+                  className={`locations__item-link tabs__item ${currentCityName === cityName ? 'tabs__item--active' : ''}`}
+                  href="#">
                   <span>{cityName}</span>
                 </a>
               </li>

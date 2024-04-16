@@ -12,7 +12,7 @@ import Spinner from '../../components/spinner/spinner.tsx';
 
 function OfferPage() {
   const dispatch = useAppDispatch();
-  const { id } = useParams();
+  const {id} = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function OfferPage() {
     }
   }, [dispatch, id]);
 
-  const { offer, suggestions, fetchingOfferStatus } = useAppSelector((state) => state);
+  const {offer, suggestions, fetchingOfferStatus} = useAppSelector((state) => state);
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
   if (fetchingOfferStatus === RequestStatus.Error) {
@@ -45,7 +45,7 @@ function OfferPage() {
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              <PremiumLabel visible={validOffer.isPremium} big />
+              <PremiumLabel visible={validOffer.isPremium} big/>
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{validOffer.title}</h1>
                 <button className="offer__bookmark-button button" type="button">
@@ -80,8 +80,10 @@ function OfferPage() {
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
-                  <div className={`${validOffer.host.isPro ? 'offer__avatar-wrapper--pro' : ''} offer__avatar-wrapper user__avatar-wrapper`}>
-                    <img className="offer__avatar user__avatar" src={validOffer.host.avatarUrl} width="74" height="74" alt="Host avatar"/>
+                  <div
+                    className={`${validOffer.host.isPro ? 'offer__avatar-wrapper--pro' : ''} offer__avatar-wrapper user__avatar-wrapper`}>
+                    <img className="offer__avatar user__avatar" src={validOffer.host.avatarUrl} width="74" height="74"
+                         alt="Host avatar"/>
                   </div>
                   <span className="offer__user-name">{validOffer.host.name}</span>
                   {validOffer.host.isPro && <span className="offer__user-status">Pro</span>}
@@ -93,7 +95,8 @@ function OfferPage() {
               <Reviews/>
             </div>
           </div>
-          {<Map location={City[offer!.city.name].center} offers={validOffers} specialOfferId={activeOfferId} type="offer"/>}
+          {<Map location={City[offer!.city.name].center} offers={validOffers} specialOfferId={activeOfferId}
+                type="offer"/>}
         </section>
         <div className="container">
           <section className="near-places places">

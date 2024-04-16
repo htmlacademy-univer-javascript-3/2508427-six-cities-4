@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './app.tsx';
-import { store } from './store';
-import { Provider } from 'react-redux';
+import {store} from './store';
+import {Provider} from 'react-redux';
 import {checkAuth} from './store/api-actions.ts';
 
 const root = ReactDOM.createRoot(
@@ -14,7 +14,7 @@ store.dispatch(checkAuth());
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <App/>
     </Provider>
   </React.StrictMode>
 );

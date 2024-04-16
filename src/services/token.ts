@@ -1,4 +1,4 @@
-import { TOKEN_KEY_NAME } from '../settings.ts';
+import {TOKEN_KEY_NAME} from '../settings.ts';
 
 export function getToken() {
   return localStorage.getItem(TOKEN_KEY_NAME) ?? '';

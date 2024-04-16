@@ -1,5 +1,5 @@
-import { OfferCompressed } from '../../types/offer.ts';
-import { Link } from 'react-router-dom';
+import {OfferCompressed} from '../../types/offer.ts';
+import {Link} from 'react-router-dom';
 import '../../style.css';
 import PremiumLabel from '../premium-label/premium-label.tsx';
 import {useAppDispatch} from '../../hooks';
@@ -19,7 +19,7 @@ function OfferCardFavourite({offer}: OfferCardFavouriteProps) {
 
   return (
     <article className="favorites__card place-card">
-      <PremiumLabel visible={offer.isPremium} />
+      <PremiumLabel visible={offer.isPremium}/>
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`/offers/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="150" height="110" alt={offer.title}/>
@@ -31,7 +31,8 @@ function OfferCardFavourite({offer}: OfferCardFavouriteProps) {
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button onClick={onBookmarkClick} className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+          <button onClick={onBookmarkClick}
+                  className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>

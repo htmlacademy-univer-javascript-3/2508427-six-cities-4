@@ -29,7 +29,7 @@ function Reviews() {
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ul className="reviews__list">
-        {reviews.map((review) => <Review key={review.id} review={review} />)}
+        {reviews.map((review) => <Review key={review.id} review={review}/>)}
       </ul>
       {authorizationStatus === AuthorizationStatus.Authorized && (
         <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
@@ -52,7 +52,8 @@ function Reviews() {
               To submit review please make sure to set <span className="reviews__star">rating</span> and
               describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
             </p>
-            <button className="reviews__submit form__submit button" type="submit" disabled={reviewTemplate.comment.length < 50 || reviewTemplate.comment.length > 300 || reviewTemplate.rating === 0}>Submit
+            <button className="reviews__submit form__submit button" type="submit"
+                    disabled={reviewTemplate.comment.length < 50 || reviewTemplate.comment.length > 300 || reviewTemplate.rating === 0}>Submit
             </button>
           </div>
         </form>

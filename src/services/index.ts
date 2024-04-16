@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {BACKEND_URL, REQUEST_TIMEOUT} from '../settings.ts';
-import { getToken } from './token.ts';
+import {getToken} from './token.ts';
 
 
 export const createApi = () => {

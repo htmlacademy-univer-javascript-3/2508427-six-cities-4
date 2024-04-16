@@ -1,6 +1,6 @@
-import { Location } from './location.ts';
-import { User } from './user.ts';
-import { City } from './city.ts';
+import {Location} from './location.ts';
+import {User} from './user.ts';
+import {City} from './city.ts';
 import {Review} from './review.ts';
 
 export enum OfferType {

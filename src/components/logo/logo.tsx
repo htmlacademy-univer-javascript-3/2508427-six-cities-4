@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {LogoType, Path} from '../../settings.ts';
 
 type LogoProps = {
@@ -6,7 +6,7 @@ type LogoProps = {
 };
 
 function Logo({type}: LogoProps) {
-  switch(type) {
+  switch (type) {
     case LogoType.Header:
       return (
         <Link className="header__logo-link header__logo-link--active" to={Path.Main}>

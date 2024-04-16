@@ -1,5 +1,5 @@
 import OfferCard from '../offer-card/offer-card.tsx';
-import { OfferCompressed } from '../../types/offer.ts';
+import {OfferCompressed} from '../../types/offer.ts';
 
 type OffersListProps = {
   offers: OfferCompressed[];
@@ -13,7 +13,7 @@ function OffersList({offers, setActiveOfferId}: OffersListProps) {
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers.map((offer) => <OfferCard key={offer.id} offer={offer} onHover={handleHover} />)}
+      {offers.map((offer) => <OfferCard key={offer.id} offer={offer} onHover={handleHover}/>)}
     </div>
   );
 }
