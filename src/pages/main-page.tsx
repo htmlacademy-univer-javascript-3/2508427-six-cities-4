@@ -2,12 +2,13 @@ import Header from '../components/header.tsx';
 import Tabs from '../components/tabs.tsx';
 import OffersList from '../components/offers-list.tsx';
 import Map from '../components/map.tsx';
-import { useState } from 'react';
-import { useAppSelector } from '../hooks';
 import { City, RequestStatus, SortOption } from '../settings.ts';
+import {useEffect, useState} from 'react';
+import {useAppDispatch, useAppSelector} from '../hooks';
 import Spinner from '../components/spinner.tsx';
 import SortingVariants from '../components/sorting-variants.tsx';
 import { OfferCompressed } from '../types/offer.ts';
+import {fetchOffers} from '../store/api-actions.ts';
 
 
 const getSortedOffers = (offers: OfferCompressed[], sortType: SortOption) => {
@@ -25,30 +26,29 @@ const getSortedOffers = (offers: OfferCompressed[], sortType: SortOption) => {
 
 
 function MainPage() {
-  const rawOffers = useAppSelector((state) => state.offers);
-  const currentCityName = useAppSelector((state) => state.currentCityName);
-  const fetchingStatus = useAppSelector((state) => state.fetchingStatus);
+  const dispatch = useAppDispatch();
+  const {offers, currentCityName, fetchingOffersStatus} = useAppSelector((state) => state);
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const [activeSortType, setActiveSortType] = useState<SortOption>(SortOption.Popular);
 
-  if (fetchingStatus === RequestStatus.Pending) {
-    return <Spinner />;
-  }
+  useEffect(() => {
+    dispatch(fetchOffers());
+  }, [dispatch]);
 
-  const offers = rawOffers.filter((x) => x.city.name === currentCityName);
-  const sortedOffers = getSortedOffers(offers, activeSortType);
+  const filteredOffers = offers.filter((x) => x.city.name === currentCityName);
+  const sortedOffers = getSortedOffers(filteredOffers, activeSortType);
 
-  const content = offers.length > 0
+  const content = filteredOffers.length > 0
     ? (
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{offers.length} places to stay in {currentCityName}</b>
+          <b className="places__found">{filteredOffers.length} places to stay in {currentCityName}</b>
           <SortingVariants activeSortType={activeSortType} setActiveSortType={setActiveSortType} />
           <OffersList offers={sortedOffers} setActiveOfferId={setActiveOfferId} />
         </section>
         <div className="cities__right-section">
-          <Map location={City[currentCityName].center} offers={offers} specialOfferId={activeOfferId} type="cities" />
+          <Map location={City[currentCityName].center} offers={filteredOffers} specialOfferId={activeOfferId} type="cities" />
         </div>
       </div>
     )
@@ -71,7 +71,9 @@ function MainPage() {
         <h1 className="visually-hidden">Cities</h1>
         <Tabs />
         <div className="cities">
-          {content}
+          {fetchingOffersStatus === RequestStatus.Success && <div className="cities">{content}</div>}
+          {fetchingOffersStatus === RequestStatus.Error && <h1>Error</h1>}
+          {fetchingOffersStatus === RequestStatus.Pending && <Spinner />}
         </div>
       </main>
     </div>

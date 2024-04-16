@@ -3,6 +3,8 @@ import { ApiRoute, Namespace } from '../settings.ts';
 import { Offer, OfferCompressed } from '../types/offer.ts';
 import { AxiosInstance } from 'axios';
 import { Review } from '../types/review.ts';
+import {UserIdentity, UserLogin} from '../types/user.ts';
+import {setToken} from '../services/token.ts';
 
 
 type ThunkApiConfig = {
@@ -39,4 +41,21 @@ export const fetchFavourites = createAsyncThunk<OfferCompressed[], undefined, Th
     const {data} = await api.get<OfferCompressed[]>(ApiRoute.Favourites);
     return data;
   }
+);
+
+export const checkAuth = createAsyncThunk<UserIdentity, undefined, ThunkApiConfig>(
+  `${Namespace.User}/checkAuth`,
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<UserIdentity>(ApiRoute.Login);
+    return data;
+  },
+);
+
+export const login = createAsyncThunk<UserIdentity, UserLogin, ThunkApiConfig>(
+  `${Namespace.User}/login`,
+  async (userLogin: UserLogin, {extra: api}) => {
+    const {data} = await api.post<UserIdentity>(ApiRoute.Login, userLogin);
+    setToken(data.token);
+    return data;
+  },
 );
