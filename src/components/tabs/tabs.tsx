@@ -1,6 +1,6 @@
-import { CityName } from '../settings.ts';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { setCurrentCityName } from '../store/actions.ts';
+import {CityName} from '../../settings.ts';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {setCurrentCityName} from '../../store/actions.ts';
 
 
 function Tabs() {

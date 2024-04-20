@@ -1,26 +1,32 @@
-import Logo, { LogoType } from './logo.tsx';
-import { useAppSelector } from '../hooks';
-import {AuthorizationStatus, Path} from '../settings.ts';
+import Logo from '../logo/logo.tsx';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {AuthorizationStatus, LogoType, Path} from '../../settings.ts';
 import {Link} from 'react-router-dom';
+import {logout} from '../../store/api-actions.ts';
 
 
 function Header() {
-  const { authorizationStatus, user } = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
+
+  function sendLogoutAction() {
+    dispatch(logout());
+  }
+
+  const {authorizationStatus, user, favourites} = useAppSelector((state) => state);
   const authContent = authorizationStatus === AuthorizationStatus.Authorized
     ? (
       <ul className="header__nav-list">
         <li className="header__nav-item user">
-          <a className="header__nav-link header__nav-link--profile" href="#">
-            <div className="header__avatar-wrapper user__avatar-wrapper">
-            </div>
-            <span className="header__user-name user__name">{user?.email}</span>
-            <span className="header__favorite-count">3</span>
-          </a>
+          <span className="header__nav-link header__nav-link--profile">
+            <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+            <Link className="header__user-name user__name" to={Path.Favourites}>{user?.email}</Link>
+            <span className="header__favorite-count">{favourites.length}</span>
+          </span>
         </li>
         <li className="header__nav-item">
-          <a className="header__nav-link" href="#">
-            <span className="header__signout">Sign out</span>
-          </a>
+          <span className="header__nav-link">
+            <Link className="header__signout" to={Path.Main} onClick={sendLogoutAction}>Sign out</Link>
+          </span>
         </li>
       </ul>
     )

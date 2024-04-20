@@ -1,6 +1,7 @@
-import { Location } from './location.ts';
-import { User } from './user.ts';
-import { City } from './city.ts';
+import {Location} from './location.ts';
+import {User, UserIdentity} from './user.ts';
+import {City} from './city.ts';
+import {Review} from './review.ts';
 
 export enum OfferType {
   Apartment = 'apartment',
@@ -32,4 +33,20 @@ export interface Offer extends OfferBase {
   host: User;
   images: string[];
   maxAdults: number;
+}
+
+export interface OfferExtended {
+  offer: Offer;
+  reviews: Review[];
+  suggestions: OfferCompressed[];
+}
+
+export interface OfferFavouriteTemplate {
+  offerId: string;
+  status: number;
+}
+
+export interface FavouritesWithUser {
+  user: UserIdentity;
+  favourites: OfferCompressed[];
 }

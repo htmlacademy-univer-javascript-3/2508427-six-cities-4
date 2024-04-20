@@ -1,24 +1,24 @@
-import Header from '../components/header.tsx';
-import Tabs from '../components/tabs.tsx';
-import OffersList from '../components/offers-list.tsx';
-import Map from '../components/map.tsx';
-import { City, RequestStatus, SortOption } from '../settings.ts';
+import Header from '../../components/header/header.tsx';
+import Tabs from '../../components/tabs/tabs.tsx';
+import OffersList from '../../components/offers-list/offers-list.tsx';
+import Map from '../../components/map/map.tsx';
+import {City, RequestStatus, SortOption} from '../../settings.ts';
 import {useEffect, useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../hooks';
-import Spinner from '../components/spinner.tsx';
-import SortingVariants from '../components/sorting-variants.tsx';
-import { OfferCompressed } from '../types/offer.ts';
-import {fetchOffers} from '../store/api-actions.ts';
+import {OfferCompressed} from '../../types/offer.ts';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import Spinner from '../../components/spinner/spinner.tsx';
+import SortingVariants from '../../components/sorting-variants/sorting-variants.tsx';
+import {fetchOffers} from '../../store/api-actions.ts';
 
 
 const getSortedOffers = (offers: OfferCompressed[], sortType: SortOption) => {
   switch (sortType) {
     case SortOption.LowToHigh:
-      return offers.sort((a, b) => a.price - b.price);
+      return offers.sort((offerA, offerB) => offerA.price - offerB.price);
     case SortOption.HighToLow:
-      return offers.sort((a, b) => b.price - a.price);
+      return offers.sort((offerA, offerB) => offerB.price - offerA.price);
     case SortOption.TopRated:
-      return offers.sort((a, b) => b.rating - a.rating);
+      return offers.sort((offerA, offerB) => offerB.rating - offerA.rating);
     default:
       return offers;
   }
@@ -27,15 +27,17 @@ const getSortedOffers = (offers: OfferCompressed[], sortType: SortOption) => {
 
 function MainPage() {
   const dispatch = useAppDispatch();
-  const {offers, currentCityName, fetchingOffersStatus} = useAppSelector((state) => state);
-  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+  const offers = useAppSelector((state) => state.offers);
+  const currentCityName = useAppSelector((state) => state.currentCityName);
+  const activeOfferId = useAppSelector((state) => state.activeOfferId);
+  const fetchingOffersStatus = useAppSelector((state) => state.fetchingOffersStatus);
   const [activeSortType, setActiveSortType] = useState<SortOption>(SortOption.Popular);
 
   useEffect(() => {
     dispatch(fetchOffers());
   }, [dispatch]);
 
-  const filteredOffers = offers.filter((x) => x.city.name === currentCityName);
+  const filteredOffers = offers.filter((offer) => offer.city.name === currentCityName);
   const sortedOffers = getSortedOffers(filteredOffers, activeSortType);
 
   const content = filteredOffers.length > 0
@@ -44,11 +46,11 @@ function MainPage() {
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
           <b className="places__found">{filteredOffers.length} places to stay in {currentCityName}</b>
-          <SortingVariants activeSortType={activeSortType} setActiveSortType={setActiveSortType} />
-          <OffersList offers={sortedOffers} setActiveOfferId={setActiveOfferId} />
+          <SortingVariants activeSortType={activeSortType} setActiveSortType={setActiveSortType}/>
+          <OffersList offers={sortedOffers}/>
         </section>
         <div className="cities__right-section">
-          <Map location={City[currentCityName].center} offers={filteredOffers} specialOfferId={activeOfferId} type="cities" />
+          <Map location={City[currentCityName].center} offers={filteredOffers} specialOfferId={activeOfferId} type="cities"/>
         </div>
       </div>
     )
@@ -66,14 +68,14 @@ function MainPage() {
 
   return (
     <div className="page page--gray page--main">
-      <Header />
+      <Header/>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <Tabs />
+        <Tabs/>
         <div className="cities">
           {fetchingOffersStatus === RequestStatus.Success && <div className="cities">{content}</div>}
           {fetchingOffersStatus === RequestStatus.Error && <h1>Error</h1>}
-          {fetchingOffersStatus === RequestStatus.Pending && <Spinner />}
+          {fetchingOffersStatus === RequestStatus.Pending && <Spinner/>}
         </div>
       </main>
     </div>

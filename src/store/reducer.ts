@@ -2,8 +2,17 @@ import {AuthorizationStatus, CityName, RequestStatus} from '../settings.ts';
 import {createReducer} from '@reduxjs/toolkit';
 import {Offer, OfferCompressed} from '../types/offer.ts';
 import {Review} from '../types/review.ts';
-import {checkAuth, fetchFavourites, fetchOffer, fetchOffers, login} from './api-actions.ts';
-import {setCurrentCityName} from './actions.ts';
+import {
+  changeFavourite,
+  checkAuth,
+  fetchFavourites,
+  fetchOffer,
+  fetchOffers,
+  login,
+  logout,
+  sendReview
+} from './api-actions.ts';
+import {setActiveOfferId, setCurrentCityName} from './actions.ts';
 import {UserIdentity} from '../types/user.ts';
 
 const initialState: {
@@ -16,8 +25,10 @@ const initialState: {
   fetchingOffersStatus: RequestStatus;
   fetchingOfferStatus: RequestStatus;
   fetchingFavouritesStatus: RequestStatus;
+  sendingReviewStatus: RequestStatus;
   authorizationStatus: AuthorizationStatus;
   user: UserIdentity | null;
+  activeOfferId: string | null;
 } = {
   offers: [],
   suggestions: [],
@@ -28,8 +39,10 @@ const initialState: {
   fetchingOffersStatus: RequestStatus.Pending,
   fetchingOfferStatus: RequestStatus.Pending,
   fetchingFavouritesStatus: RequestStatus.Pending,
+  sendingReviewStatus: RequestStatus.Pending,
   authorizationStatus: AuthorizationStatus.Unknown,
-  user: null
+  user: null,
+  activeOfferId: null
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -75,11 +88,15 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setCurrentCityName, (state, action) => {
       state.currentCityName = action.payload;
     })
+    .addCase(setActiveOfferId, (state, action) => {
+      state.activeOfferId = action.payload;
+    })
     .addCase(checkAuth.pending, (state) => {
       state.authorizationStatus = AuthorizationStatus.Unknown;
     })
     .addCase(checkAuth.fulfilled, (state, action) => {
-      state.user = action.payload;
+      state.user = action.payload.user;
+      state.favourites = action.payload.favourites;
       state.authorizationStatus = AuthorizationStatus.Authorized;
     })
     .addCase(checkAuth.rejected, (state) => {
@@ -87,11 +104,32 @@ export const reducer = createReducer(initialState, (builder) => {
       state.authorizationStatus = AuthorizationStatus.NotAuthorized;
     })
     .addCase(login.fulfilled, (state, action) => {
-      state.user = action.payload;
+      state.user = action.payload.user;
+      state.favourites = action.payload.favourites;
       state.authorizationStatus = AuthorizationStatus.Authorized;
     })
     .addCase(login.rejected, (state) => {
       state.user = null;
       state.authorizationStatus = AuthorizationStatus.NotAuthorized;
+    })
+    .addCase(sendReview.pending, (state) => {
+      state.sendingReviewStatus = RequestStatus.Pending;
+    })
+    .addCase(sendReview.fulfilled, (state, action) => {
+      state.reviews.push(action.payload);
+      state.sendingReviewStatus = RequestStatus.Success;
+    })
+    .addCase(sendReview.rejected, (state) => {
+      state.sendingReviewStatus = RequestStatus.Error;
+    })
+    .addCase(logout.fulfilled, (state) => {
+      state.user = null;
+      state.authorizationStatus = AuthorizationStatus.NotAuthorized;
+    })
+    .addCase(changeFavourite.fulfilled, (state, action) => {
+      const index = state.offers.findIndex((offer) => offer.id === action.payload.id);
+      if (index !== -1) {
+        state.offers[index].isFavorite = action.payload.isFavorite;
+      }
     });
 });

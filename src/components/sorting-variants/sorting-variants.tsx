@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { SortOption } from '../settings.ts';
+import {useState} from 'react';
+import {SortOption} from '../../settings.ts';
 
 type SortingVariantsProps = {
   activeSortType: SortOption;
@@ -24,7 +24,8 @@ function SortingVariants({activeSortType, setActiveSortType}: SortingVariantsPro
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${active ? 'places__options--opened' : ''}`}>
-        {Object.values(SortOption).map((option) => (<li key={option} className={`places__option ${option === activeSortType ? 'places__option--active' : ''}`} onClick={() => setSortType(option)}>{option}</li>))}
+        {Object.values(SortOption).map((option) => (
+          <li key={option} className={`places__option ${option === activeSortType ? 'places__option--active' : ''}`} onClick={() => setSortType(option)}>{option}</li>))}
       </ul>
     </form>
   );

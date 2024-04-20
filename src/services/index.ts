@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { BACKEND_URL, RequestTimeout } from '../settings.ts';
-import { getToken } from './token.ts';
+import {BACKEND_URL, REQUEST_TIMEOUT} from '../settings.ts';
+import {getToken} from './token.ts';
 
 
 export const createApi = () => {
   const api = axios.create({
     baseURL: BACKEND_URL,
-    timeout: RequestTimeout
+    timeout: REQUEST_TIMEOUT
   });
 
   api.interceptors.request.use((config) => {
