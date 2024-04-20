@@ -27,8 +27,10 @@ const getSortedOffers = (offers: OfferCompressed[], sortType: SortOption) => {
 
 function MainPage() {
   const dispatch = useAppDispatch();
-  const {offers, currentCityName, fetchingOffersStatus} = useAppSelector((state) => state);
-  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+  const offers = useAppSelector((state) => state.offers);
+  const currentCityName = useAppSelector((state) => state.currentCityName);
+  const activeOfferId = useAppSelector((state) => state.activeOfferId);
+  const fetchingOffersStatus = useAppSelector((state) => state.fetchingOffersStatus);
   const [activeSortType, setActiveSortType] = useState<SortOption>(SortOption.Popular);
 
   useEffect(() => {
@@ -45,7 +47,7 @@ function MainPage() {
           <h2 className="visually-hidden">Places</h2>
           <b className="places__found">{filteredOffers.length} places to stay in {currentCityName}</b>
           <SortingVariants activeSortType={activeSortType} setActiveSortType={setActiveSortType}/>
-          <OffersList offers={sortedOffers} setActiveOfferId={setActiveOfferId}/>
+          <OffersList offers={sortedOffers}/>
         </section>
         <div className="cities__right-section">
           <Map location={City[currentCityName].center} offers={filteredOffers} specialOfferId={activeOfferId} type="cities"/>

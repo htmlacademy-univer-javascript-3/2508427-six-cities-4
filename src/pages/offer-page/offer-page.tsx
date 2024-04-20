@@ -1,6 +1,6 @@
 import Header from '../../components/header/header.tsx';
 import PremiumLabel from '../../components/premium-label/premium-label.tsx';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import Map from '../../components/map/map.tsx';
 import OfferCard from '../../components/offer-card/offer-card.tsx';
 import {useAppDispatch, useAppSelector} from '../../hooks';
@@ -10,6 +10,7 @@ import Reviews from '../../components/reviews/reviews.tsx';
 import {City, RequestStatus} from '../../settings.ts';
 import Spinner from '../../components/spinner/spinner.tsx';
 import {Offer} from '../../types/offer.ts';
+import {setActiveOfferId} from '../../store/actions.ts';
 
 function OfferPage() {
   const dispatch = useAppDispatch();
@@ -24,12 +25,16 @@ function OfferPage() {
   const offer = useAppSelector((state) => state.offer) as Offer;
   const suggestions = useAppSelector((state) => state.suggestions);
   const fetchingOfferStatus = useAppSelector((state) => state.fetchingOfferStatus);
-  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+  const activeOfferId = useAppSelector((state) => state.activeOfferId);
 
   const validOffers = suggestions.slice(0, 3);
 
   function onBookmarkClick() {
     dispatch(changeFavourite({offerId: offer.id, status: offer.isFavorite ? 0 : 1}));
+  }
+
+  function handleHover(offerId: string | null) {
+    dispatch(setActiveOfferId(offerId));
   }
 
   return (
@@ -103,7 +108,7 @@ function OfferPage() {
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                {validOffers.map((card) => <OfferCard key={card.id} offer={card} onHover={setActiveOfferId}/>)}
+                {validOffers.map((card) => <OfferCard key={card.id} offer={card} onHover={handleHover}/>)}
               </div>
             </section>
           </div>

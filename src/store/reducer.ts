@@ -12,7 +12,7 @@ import {
   logout,
   sendReview
 } from './api-actions.ts';
-import {setCurrentCityName} from './actions.ts';
+import {setActiveOfferId, setCurrentCityName} from './actions.ts';
 import {UserIdentity} from '../types/user.ts';
 
 const initialState: {
@@ -28,6 +28,7 @@ const initialState: {
   sendingReviewStatus: RequestStatus;
   authorizationStatus: AuthorizationStatus;
   user: UserIdentity | null;
+  activeOfferId: string | null;
 } = {
   offers: [],
   suggestions: [],
@@ -40,7 +41,8 @@ const initialState: {
   fetchingFavouritesStatus: RequestStatus.Pending,
   sendingReviewStatus: RequestStatus.Pending,
   authorizationStatus: AuthorizationStatus.Unknown,
-  user: null
+  user: null,
+  activeOfferId: null
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -85,6 +87,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setCurrentCityName, (state, action) => {
       state.currentCityName = action.payload;
+    })
+    .addCase(setActiveOfferId, (state, action) => {
+      state.activeOfferId = action.payload;
     })
     .addCase(checkAuth.pending, (state) => {
       state.authorizationStatus = AuthorizationStatus.Unknown;

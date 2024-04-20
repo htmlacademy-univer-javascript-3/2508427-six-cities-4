@@ -1,14 +1,17 @@
 import OfferCard from '../offer-card/offer-card.tsx';
 import {OfferCompressed} from '../../types/offer.ts';
+import {useAppDispatch} from '../../hooks';
+import {setActiveOfferId} from '../../store/actions.ts';
 
 type OffersListProps = {
   offers: OfferCompressed[];
-  setActiveOfferId: (offerId: string | null) => void;
 };
 
-function OffersList({offers, setActiveOfferId}: OffersListProps) {
+function OffersList({offers}: OffersListProps) {
+  const dispatch = useAppDispatch();
+
   function handleHover(offerId: string | null) {
-    setActiveOfferId(offerId);
+    dispatch(setActiveOfferId(offerId));
   }
 
   return (
