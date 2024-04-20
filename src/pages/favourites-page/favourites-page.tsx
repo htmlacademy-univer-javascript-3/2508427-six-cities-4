@@ -1,18 +1,10 @@
 import Header from '../../components/header/header.tsx';
 import Logo from '../../components/logo/logo.tsx';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useAppSelector} from '../../hooks';
 import {LogoType} from '../../settings.ts';
-import {useEffect} from 'react';
-import {fetchFavourites} from '../../store/api-actions.ts';
 import FavouriteLocation from '../../components/favourite-location/favourite-location.tsx';
 
 function FavouritesPage() {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchFavourites());
-  }, [dispatch]);
-
   const favourites = useAppSelector((state) => state.favourites);
   const citiesNames = [...new Set(favourites.map((offer) => offer.city.name))];
 

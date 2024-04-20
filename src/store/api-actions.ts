@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {ApiRoute, Namespace} from '../settings.ts';
-import {Offer, OfferCompressed, OfferExtended, OfferFavouriteTemplate} from '../types/offer.ts';
+import {FavouritesWithUser, Offer, OfferCompressed, OfferExtended, OfferFavouriteTemplate} from '../types/offer.ts';
 import {AxiosInstance} from 'axios';
 import {Review, ReviewPost} from '../types/review.ts';
 import {UserIdentity, UserLogin} from '../types/user.ts';
@@ -37,20 +37,22 @@ export const fetchFavourites = createAsyncThunk<OfferCompressed[], undefined, Th
   }
 );
 
-export const checkAuth = createAsyncThunk<UserIdentity, undefined, ThunkApiConfig>(
+export const checkAuth = createAsyncThunk<FavouritesWithUser, undefined, ThunkApiConfig>(
   `${Namespace.User}/checkAuth`,
   async (_arg, {extra: api}) => {
-    const {data} = await api.get<UserIdentity>(ApiRoute.Login);
-    return data;
+    const {data: user} = await api.get<UserIdentity>(ApiRoute.Login);
+    const {data: favourites} = await api.get<OfferCompressed[]>(ApiRoute.Favourites);
+    return {user, favourites};
   },
 );
 
-export const login = createAsyncThunk<UserIdentity, UserLogin, ThunkApiConfig>(
+export const login = createAsyncThunk<FavouritesWithUser, UserLogin, ThunkApiConfig>(
   `${Namespace.User}/login`,
   async (userLogin: UserLogin, {extra: api}) => {
-    const {data} = await api.post<UserIdentity>(ApiRoute.Login, userLogin);
-    setToken(data.token);
-    return data;
+    const {data: user} = await api.post<UserIdentity>(ApiRoute.Login, userLogin);
+    const {data: favourites} = await api.get<OfferCompressed[]>(ApiRoute.Favourites);
+    setToken(user.token);
+    return {user, favourites};
   },
 );
 

@@ -3,7 +3,7 @@ import Review from '../review/review.tsx';
 import {ChangeEvent, SyntheticEvent, useState} from 'react';
 import StarsSelector from '../stars-selector/stars-selector.tsx';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {AuthorizationStatus} from '../../settings.ts';
+import {AuthorizationStatus, REVIEW_MAX_LENGTH, REVIEW_MIN_LENGTH} from '../../settings.ts';
 import {sendReview} from '../../store/api-actions.ts';
 
 
@@ -11,6 +11,8 @@ function Reviews() {
   const dispatch = useAppDispatch();
   const {reviews, authorizationStatus, offer} = useAppSelector((state) => state);
   const [reviewTemplate, setReviewTemplate] = useState<ReviewTemplate>({rating: 0, comment: ''});
+
+  const isValidReview = reviewTemplate.comment.length < REVIEW_MIN_LENGTH || reviewTemplate.comment.length > REVIEW_MAX_LENGTH || reviewTemplate.rating === 0;
 
   function handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
@@ -55,7 +57,7 @@ function Reviews() {
             <button
               className="reviews__submit form__submit button"
               type="submit"
-              disabled={reviewTemplate.comment.length < 50 || reviewTemplate.comment.length > 300 || reviewTemplate.rating === 0}
+              disabled={isValidReview}
             >
               Submit
             </button>

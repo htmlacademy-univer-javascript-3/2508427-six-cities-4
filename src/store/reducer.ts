@@ -90,7 +90,8 @@ export const reducer = createReducer(initialState, (builder) => {
       state.authorizationStatus = AuthorizationStatus.Unknown;
     })
     .addCase(checkAuth.fulfilled, (state, action) => {
-      state.user = action.payload;
+      state.user = action.payload.user;
+      state.favourites = action.payload.favourites;
       state.authorizationStatus = AuthorizationStatus.Authorized;
     })
     .addCase(checkAuth.rejected, (state) => {
@@ -98,7 +99,8 @@ export const reducer = createReducer(initialState, (builder) => {
       state.authorizationStatus = AuthorizationStatus.NotAuthorized;
     })
     .addCase(login.fulfilled, (state, action) => {
-      state.user = action.payload;
+      state.user = action.payload.user;
+      state.favourites = action.payload.favourites;
       state.authorizationStatus = AuthorizationStatus.Authorized;
     })
     .addCase(login.rejected, (state) => {

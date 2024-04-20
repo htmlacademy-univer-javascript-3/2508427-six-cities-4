@@ -52,6 +52,9 @@ export const BACKEND_URL = 'https://14.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
 export const TOKEN_KEY_NAME = 'six-cities-token';
 
+export const REVIEW_MIN_LENGTH = 50;
+export const REVIEW_MAX_LENGTH = 300;
+
 export enum ApiRoute {
   Offers = '/offers',
   Reviews = '/comments',

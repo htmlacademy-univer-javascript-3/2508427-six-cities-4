@@ -12,7 +12,7 @@ function Header() {
     dispatch(logout());
   }
 
-  const {authorizationStatus, user} = useAppSelector((state) => state);
+  const {authorizationStatus, user, favourites} = useAppSelector((state) => state);
   const authContent = authorizationStatus === AuthorizationStatus.Authorized
     ? (
       <ul className="header__nav-list">
@@ -20,7 +20,7 @@ function Header() {
           <span className="header__nav-link header__nav-link--profile">
             <div className="header__avatar-wrapper user__avatar-wrapper"></div>
             <Link className="header__user-name user__name" to={Path.Favourites}>{user?.email}</Link>
-            <span className="header__favorite-count">3</span>
+            <span className="header__favorite-count">{favourites.length}</span>
           </span>
         </li>
         <li className="header__nav-item">
