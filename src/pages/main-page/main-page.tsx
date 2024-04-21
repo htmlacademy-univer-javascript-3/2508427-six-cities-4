@@ -3,7 +3,7 @@ import Tabs from '../../components/tabs/tabs.tsx';
 import OffersList from '../../components/offers-list/offers-list.tsx';
 import Map from '../../components/map/map.tsx';
 import {City, RequestStatus, SortOption} from '../../settings.ts';
-import {useEffect, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import {OfferCompressed} from '../../types/offer.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import Spinner from '../../components/spinner/spinner.tsx';
@@ -37,8 +37,8 @@ function MainPage() {
     dispatch(fetchOffers());
   }, [dispatch]);
 
-  const filteredOffers = offers.filter((offer) => offer.city.name === currentCityName);
-  const sortedOffers = getSortedOffers(filteredOffers, activeSortType);
+  const filteredOffers = useMemo(() => offers.filter((offer) => offer.city.name === currentCityName), [offers, currentCityName]);
+  const sortedOffers = useMemo(() => getSortedOffers(filteredOffers, activeSortType), [filteredOffers, activeSortType]);
 
   const content = filteredOffers.length > 0
     ? (
