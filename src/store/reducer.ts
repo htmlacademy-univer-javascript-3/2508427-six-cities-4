@@ -35,7 +35,7 @@ const initialState: {
   reviews: [],
   offer: null,
   favourites: [],
-  currentCityName: CityName.Amsterdam,
+  currentCityName: CityName.Paris,
   fetchingOffersStatus: RequestStatus.Pending,
   fetchingOfferStatus: RequestStatus.Pending,
   fetchingFavouritesStatus: RequestStatus.Pending,
