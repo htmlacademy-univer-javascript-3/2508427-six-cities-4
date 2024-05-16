@@ -50,8 +50,8 @@ export const login = createAsyncThunk<FavouritesWithUser, UserLogin, ThunkApiCon
   `${Namespace.User}/login`,
   async (userLogin: UserLogin, {extra: api}) => {
     const {data: user} = await api.post<UserIdentity>(ApiRoute.Login, userLogin);
-    const {data: favourites} = await api.get<OfferCompressed[]>(ApiRoute.Favourites);
     setToken(user.token);
+    const {data: favourites} = await api.get<OfferCompressed[]>(ApiRoute.Favourites);
     return {user, favourites};
   },
 );
