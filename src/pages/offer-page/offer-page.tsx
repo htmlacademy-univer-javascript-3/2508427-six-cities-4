@@ -4,10 +4,10 @@ import {useEffect} from 'react';
 import Map from '../../components/map/map.tsx';
 import OfferCard from '../../components/offer-card/offer-card.tsx';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {Navigate, useParams} from 'react-router-dom';
+import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {changeFavourite, fetchOffer} from '../../store/api-actions.ts';
 import Reviews from '../../components/reviews/reviews.tsx';
-import {City, RequestStatus} from '../../settings.ts';
+import {AuthorizationStatus, City, Path, RequestStatus} from '../../settings.ts';
 import Spinner from '../../components/spinner/spinner.tsx';
 import {Offer, OfferBase} from '../../types/offer.ts';
 import {setActiveOfferId} from '../../store/actions.ts';
@@ -15,6 +15,7 @@ import {setActiveOfferId} from '../../store/actions.ts';
 function OfferPage() {
   const dispatch = useAppDispatch();
   const {id} = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (id) {
@@ -26,12 +27,17 @@ function OfferPage() {
   const suggestions = useAppSelector((state) => state.suggestions);
   const fetchingOfferStatus = useAppSelector((state) => state.fetchingOfferStatus);
   const activeOfferId = useAppSelector((state) => state.activeOfferId);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   const suggestionsOffers = suggestions.slice(0, 3);
   const mapOffers: OfferBase[] = [offer, ...suggestionsOffers];
 
   function onBookmarkClick() {
-    dispatch(changeFavourite({offerId: offer.id, status: offer.isFavorite ? 0 : 1}));
+    if (authorizationStatus === AuthorizationStatus.Authorized) {
+      dispatch(changeFavourite({offerId: offer.id, status: offer.isFavorite ? 0 : 1}));
+    } else {
+      navigate(Path.Login);
+    }
   }
 
   function handleHover(offerId: string | null) {
