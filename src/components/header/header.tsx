@@ -12,7 +12,10 @@ function Header() {
     dispatch(logout());
   }
 
-  const {authorizationStatus, user, favourites} = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const user = useAppSelector((state) => state.user);
+  const favourites = useAppSelector((state) => state.favourites);
+
   const authContent = authorizationStatus === AuthorizationStatus.Authorized
     ? (
       <ul className="header__nav-list">
@@ -33,11 +36,10 @@ function Header() {
     : (
       <ul className="header__nav-list">
         <li className="header__nav-item user">
-          <a className="header__nav-link header__nav-link--profile" href="#">
-            <div className="header__avatar-wrapper user__avatar-wrapper">
-            </div>
-            <Link className="header__login" to={Path.Login}>Sign in</Link>
-          </a>
+          <Link className="header__nav-link header__nav-link--profile" to={Path.Login}>
+            <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+            <span className="header__login">Sign in</span>
+          </Link>
         </li>
       </ul>
     );
