@@ -12,7 +12,10 @@ function Header() {
     dispatch(logout());
   }
 
-  const {authorizationStatus, user, favourites} = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const user = useAppSelector((state) => state.user);
+  const favourites = useAppSelector((state) => state.favourites);
+
   const authContent = authorizationStatus === AuthorizationStatus.Authorized
     ? (
       <ul className="header__nav-list">
