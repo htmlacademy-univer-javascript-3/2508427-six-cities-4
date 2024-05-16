@@ -68,6 +68,7 @@ export const reducer = createReducer(initialState, (builder) => {
       state.offer = action.payload.offer;
       state.suggestions = action.payload.suggestions;
       state.reviews = action.payload.reviews;
+      state.activeOfferId = action.payload.offer.id;
     })
     .addCase(fetchOffer.rejected, (state) => {
       state.fetchingOfferStatus = RequestStatus.Error;

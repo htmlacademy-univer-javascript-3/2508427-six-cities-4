@@ -9,7 +9,7 @@ import {changeFavourite, fetchOffer} from '../../store/api-actions.ts';
 import Reviews from '../../components/reviews/reviews.tsx';
 import {City, RequestStatus} from '../../settings.ts';
 import Spinner from '../../components/spinner/spinner.tsx';
-import {Offer} from '../../types/offer.ts';
+import {Offer, OfferBase} from '../../types/offer.ts';
 import {setActiveOfferId} from '../../store/actions.ts';
 
 function OfferPage() {
@@ -27,14 +27,15 @@ function OfferPage() {
   const fetchingOfferStatus = useAppSelector((state) => state.fetchingOfferStatus);
   const activeOfferId = useAppSelector((state) => state.activeOfferId);
 
-  const validOffers = suggestions.slice(0, 3);
+  const suggestionsOffers = suggestions.slice(0, 3);
+  const mapOffers: OfferBase[] = [offer, ...suggestionsOffers];
 
   function onBookmarkClick() {
     dispatch(changeFavourite({offerId: offer.id, status: offer.isFavorite ? 0 : 1}));
   }
 
   function handleHover(offerId: string | null) {
-    dispatch(setActiveOfferId(offerId));
+    dispatch(setActiveOfferId(offerId ?? offer.id));
   }
 
   return (
@@ -102,13 +103,13 @@ function OfferPage() {
                 <Reviews/>
               </div>
             </div>
-            {<Map location={City[offer.city.name].center} offers={validOffers} specialOfferId={activeOfferId} type="offer"/>}
+            {<Map location={City[offer.city.name].center} offers={mapOffers} specialOfferId={activeOfferId} type="offer"/>}
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                {validOffers.map((card) => <OfferCard key={card.id} offer={card} onHover={handleHover}/>)}
+                {suggestionsOffers.map((card) => <OfferCard key={card.id} offer={card} onHover={handleHover}/>)}
               </div>
             </section>
           </div>

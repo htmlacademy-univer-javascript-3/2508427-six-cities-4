@@ -1,14 +1,14 @@
 import useMap from '../../hooks/use-map.tsx';
 import {useEffect, useRef} from 'react';
-import {OfferCompressed} from '../../types/offer.ts';
 import {Location} from '../../types/location.ts';
 import {Icon, layerGroup, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import {OfferBase} from '../../types/offer.ts';
 
 
 type MapProps = {
   location: Location;
-  offers: OfferCompressed[];
+  offers: OfferBase[];
   specialOfferId: string | null;
   type: string;
 };
